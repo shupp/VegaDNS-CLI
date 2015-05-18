@@ -1,66 +1,131 @@
 import click
 import requests
+from requests import auth
+import os.path
+import time
+from ConfigParser import SafeConfigParser
+import json
+
+
+class AccessToken:
+    def __init__(self, environment, config):
+        self.environment = environment
+        self.key = config.get(environment, 'key')
+        self.secret = config.get(environment, 'secret')
+        self.host = config.get(environment, 'host')
+        self.token_file = os.path.expanduser(
+            '~/.vegadns-access-token-' + self.environment
+        )
+        self.now = int(time.time())
+        self.access_token = self.get_access_token()
+
+    def get_access_token(self):
+        token = self.get_access_token_from_local()
+        if token is None:
+            newdata = self.get_access_token_from_api(
+                self.key,
+                self.secret,
+                self.host
+            )
+            self.save_access_token(newdata)
+            return newdata['access_token']
+        else:
+            return token
+
+    def save_access_token(self, data):
+        newdata = {
+            'access_token': data['access_token'],
+            'expires_at': self.now + data['expires_in']
+        }
+        with open(self.token_file, 'w') as token_file:
+            json.dump(newdata, token_file)
+
+    def get_access_token_from_local(self):
+        if not os.path.exists(self.token_file):
+            return None
+
+        with open(self.token_file) as token_file:
+            data = json.load(token_file)
+            if data.get('expires_at', 0) < self.now:
+                return None
+            return data['access_token']
+
+    def get_access_token_from_api(self, key, secret, host):
+        r = requests.post(
+            host + "/token",
+            auth=auth.HTTPBasicAuth(key, secret),
+            data={"grant_type": "client_credentials"}
+        )
+        if r.status_code != 200:
+            # FIXME error handling
+            raise Exception("Error fetching token: " + str(r.status_code))
+
+        return r.json()
+
+
+# Get config
+configfile = os.path.expanduser('~/.vegadns-cli-rc')
+config = SafeConfigParser()
+config.read(configfile)
 
 
 @click.group()
 @click.option(
-    "--email",
-    prompt=True,
-    help="Email, required"
-)
-@click.password_option(
-    "--password",
-    confirmation_prompt=False,
-    help="Password, required"
-)
-@click.option(
-    "--host",
-    default="http://localhost:5000",
-    help="API Base URL, defaults to http://localhost:5000"
+    "--environment",
+    default="default",
+    help="Which environment config to use, default is 'default'"
 )
 @click.pass_context
-def cli(ctx, host, email, password):
-    ctx.obj['host'] = host
-    ctx.obj['email'] = email
-    ctx.obj['password'] = password
+def cli(ctx, environment):
+    access_token = AccessToken(environment, config)
 
+    ctx.obj['config'] = config
+    ctx.obj['environment'] = environment
+    ctx.obj['access_token'] = access_token.access_token
 
 @cli.command()
 @click.pass_context
 def list_domains(ctx):
+    host = config.get('default', 'host')
+    headers = {'Authorization': 'Bearer ' + ctx.obj['access_token']}
     r = requests.get(
-        ctx.obj['host'] + "/domains",
-        auth=(ctx.obj['email'], ctx.obj['password'])
+        host + "/domains",
+        headers=headers
     )
     if r.status_code != 200:
         click.echo("Error: " + str(r.status_code))
         return
 
     decoded = r.json()
-    for domain in decoded['domains']:
-        click.echo(domain['domain'])
+    click.echo(json.dumps(decoded['domains'], indent=4))
 
 
 @cli.command()
 @click.option(
-    "--domain",
+    "--domain_id",
     prompt=True,
-    help="Domain to list records for, required"
+    help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def list_records(ctx, domain):
+def list_records(ctx, domain_id):
+    host = config.get('default', 'host')
+    headers = {'Authorization': 'Bearer ' + ctx.obj['access_token']}
     r = requests.get(
-        ctx.obj['host'] + "/records?domain_id=" + domain,
-        auth=(ctx.obj['email'], ctx.obj['password'])
+        host + "/records?domain_id=" + domain_id,
+        headers=headers
     )
     if r.status_code != 200:
         click.echo("Error: " + str(r.status_code))
         return
 
     decoded = r.json()
+
+    out = []
     for record in decoded['records']:
         if record['record_type'] != 'SOA':
-            click.echo(record['name'])
+            out.append(record)
+
+    click.echo(json.dumps(out, indent=4))
 
 if __name__ == "__main__":
     cli(obj={})
