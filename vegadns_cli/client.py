@@ -8,6 +8,7 @@ from requests import auth
 
 logger = logging.getLogger(__name__)
 
+
 class ApiClient:
     def __init__(self, host, access_token=None):
         self.host = host
