@@ -1,9 +1,12 @@
 import json
 import time
 import os.path
+import logging
 import requests
 from requests import auth
 
+
+logger = logging.getLogger(__name__)
 
 class ApiClient:
     def __init__(self, host, access_token=None):

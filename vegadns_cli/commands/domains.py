@@ -1,9 +1,12 @@
 import click
 import json
+import logging
 import requests
 
 from vegadns_cli.common import cli
 
+
+logger = logging.getLogger(__name__)
 
 @cli.command()
 @click.pass_context
