@@ -4,4 +4,4 @@ default: check
 
 # Only check code we've written
 check:
-	pep8 vdns.py vegadns_cli
+	pep8 vdns.py vegadns_cli vegadns_client

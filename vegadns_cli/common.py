@@ -5,7 +5,8 @@ import logging
 import os.path
 import requests
 
-from vegadns_cli.client import ApiClient, AccessToken
+from vegadns_client import ApiClient
+from vegadns_client.store.file import AccessTokenStoreFile
 
 
 logger = logging.getLogger(__name__)
@@ -35,12 +36,19 @@ def cli(ctx, environment, debug=False):
         requests_log.setLevel(logging.DEBUG)
         requests_log.propagate = True
 
-    access_token = AccessToken(environment, config)
+    # access token store
+    store = AccessTokenStoreFile(
+        config.get(environment, 'key'),
+        config.get(environment, 'secret'),
+        config.get(environment, 'host'),
+        prefix=".vegadns-access-token-" + environment + "-"
+    )
+    access_token = store.get_access_token()
 
     ctx.obj['config'] = config
     ctx.obj['environment'] = environment
-    ctx.obj['access_token'] = access_token.access_token
+    ctx.obj['access_token'] = access_token
     ctx.obj['client'] = ApiClient(
         config.get(environment, 'host'),
-        access_token.access_token
+        access_token
     )
