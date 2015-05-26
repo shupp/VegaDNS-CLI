@@ -27,3 +27,7 @@ class ApiClient(object):
     def post(self, path, data=None):
         headers = {'Authorization': 'Bearer ' + self.access_token}
         return requests.post(self.host + path, headers=headers, data=data)
+
+    def put(self, path, data=None):
+        headers = {'Authorization': 'Bearer ' + self.access_token}
+        return requests.put(self.host + path, headers=headers, data=data)
