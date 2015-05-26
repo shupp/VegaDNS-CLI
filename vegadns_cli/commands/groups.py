@@ -10,6 +10,24 @@ logger = logging.getLogger(__name__)
 
 
 @cli.command()
+@click.option(
+    "--group-id",
+    prompt=True,
+    help="Group id"
+)
+@click.pass_context
+def get_group(ctx, group_id):
+    r = ctx.obj['client'].get("/groups/" + group_id)
+    if r.status_code != 200:
+        click.echo("Error: " + str(r.status_code))
+        return
+
+    decoded = r.json()
+
+    click.echo(json.dumps(decoded["group"], indent=4))
+
+
+@cli.command()
 @click.pass_context
 def list_groups(ctx):
     r = ctx.obj['client'].get("/groups")
