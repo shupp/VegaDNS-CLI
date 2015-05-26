@@ -52,9 +52,32 @@ def list_groups(ctx):
 )
 @click.pass_context
 def create_group(ctx, group_name):
-    print group_name
     r = ctx.obj['client'].post("/groups", {"name": group_name})
     if r.status_code != 201:
+        click.echo("Error: " + str(r.status_code))
+        click.echo("Response: " + str(r.content))
+        return
+
+    decoded = r.json()
+
+    click.echo(json.dumps(decoded["group"], indent=4))
+
+
+@cli.command()
+@click.option(
+    "--group-name",
+    prompt=True,
+    help="Group name to use, must be unique"
+)
+@click.option(
+    "--group-id",
+    prompt=True,
+    help="Group id"
+)
+@click.pass_context
+def edit_group(ctx, group_id, group_name):
+    r = ctx.obj['client'].put("/groups/" + group_id, {"name": group_name})
+    if r.status_code != 200:
         click.echo("Error: " + str(r.status_code))
         click.echo("Response: " + str(r.content))
         return
