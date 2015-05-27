@@ -4,6 +4,7 @@ from vegadns_client.store.file import AccessTokenStoreFile
 from vegadns_client.groups import Groups, Group
 from vegadns_client.domains import Domains, Domain
 from vegadns_client.records import Records, Record
+from vegadns_client.exports import Export
 
 
 class client(object):
@@ -24,6 +25,7 @@ class client(object):
         self.domain = Domain(self._api_client)
         self.records = Records(self._api_client)
         self.record = Record(self._api_client)
+        self.export = Export(self._api_client)
 
 
 class ApiClient(object):
