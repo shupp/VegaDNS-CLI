@@ -26,4 +26,4 @@ def list_records(ctx, domain_id):
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
-        click.exit(1)
+        ctx.exit(1)

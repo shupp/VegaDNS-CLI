@@ -24,7 +24,7 @@ def get_group(ctx, group_id):
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
-        return
+        ctx.exit(1)
 
 
 @cli.command()
@@ -39,7 +39,7 @@ def list_groups(ctx):
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
-        return
+        ctx.exit(1)
 
 
 @cli.command()
@@ -56,7 +56,7 @@ def create_group(ctx, group_name):
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
-        return
+        ctx.exit(1)
 
 
 @cli.command()
@@ -76,7 +76,7 @@ def edit_group(ctx, group_id, group_name):
     if r.status_code != 200:
         click.echo("Error: " + str(r.status_code))
         click.echo("Response: " + str(r.content))
-        return
+        ctx.exit(1)
 
     decoded = r.json()
 
@@ -97,4 +97,4 @@ def delete_group(ctx, group_id):
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
-        return
+        ctx.exit(1)
