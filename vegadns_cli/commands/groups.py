@@ -4,6 +4,7 @@ import logging
 import requests
 
 from vegadns_cli.common import cli
+from vegadns_client.exceptions import ClientException
 
 
 logger = logging.getLogger(__name__)
@@ -17,31 +18,28 @@ logger = logging.getLogger(__name__)
 )
 @click.pass_context
 def get_group(ctx, group_id):
-    r = ctx.obj['client'].get("/groups/" + group_id)
-    if r.status_code != 200:
-        click.echo("Error: " + str(r.status_code))
+    try:
+        g = ctx.obj['client'].group(group_id)
+        click.echo(json.dumps(g.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
         return
-
-    decoded = r.json()
-
-    click.echo(json.dumps(decoded["group"], indent=4))
 
 
 @cli.command()
 @click.pass_context
 def list_groups(ctx):
-    r = ctx.obj['client'].get("/groups")
-    if r.status_code != 200:
-        click.echo("Error: " + str(r.status_code))
+    try:
+        collection = ctx.obj['client'].groups()
+        groups = []
+        for group in collection:
+            groups.append(group.values)
+        click.echo(json.dumps(groups, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
         return
-
-    decoded = r.json()
-
-    out = []
-    for group in decoded['groups']:
-        out.append(group)
-
-    click.echo(json.dumps(out, indent=4))
 
 
 @cli.command()
@@ -52,15 +50,13 @@ def list_groups(ctx):
 )
 @click.pass_context
 def create_group(ctx, group_name):
-    r = ctx.obj['client'].post("/groups", {"name": group_name})
-    if r.status_code != 201:
-        click.echo("Error: " + str(r.status_code))
-        click.echo("Response: " + str(r.content))
+    try:
+        g = ctx.obj['client'].groups.create(group_name)
+        click.echo(json.dumps(g.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
         return
-
-    decoded = r.json()
-
-    click.echo(json.dumps(decoded["group"], indent=4))
 
 
 @cli.command()
@@ -85,3 +81,20 @@ def edit_group(ctx, group_id, group_name):
     decoded = r.json()
 
     click.echo(json.dumps(decoded["group"], indent=4))
+
+
+@cli.command()
+@click.option(
+    "--group-id",
+    prompt=True,
+    help="Group id"
+)
+@click.pass_context
+def delete_group(ctx, group_id):
+    try:
+        g = ctx.obj['client'].group(group_id)
+        g.delete()
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        return
