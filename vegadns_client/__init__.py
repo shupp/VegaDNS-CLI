@@ -32,6 +32,10 @@ class ApiClient(object):
         headers = {'Authorization': 'Bearer ' + self.access_token}
         return requests.put(self.host + path, headers=headers, data=data)
 
+    def delete(self, path):
+        headers = {'Authorization': 'Bearer ' + self.access_token}
+        return requests.delete(self.host + path, headers=headers)
+
     def patch(self, path, data=None):
         headers = {'Authorization': 'Bearer ' + self.access_token}
         return requests.patch(self.host + path, headers=headers, data=data)
