@@ -8,7 +8,7 @@ class client(object):
         self.key = key
         self.secret = secret
         self.host = host
-        if store is not None:
+        if store is None:
             store = AccessTokenStoreFile(key, secret, host)
         self.store = store
         self.access_token = store.get_access_token()
