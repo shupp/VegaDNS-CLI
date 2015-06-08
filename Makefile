@@ -4,4 +4,6 @@ default: check
 
 # Only check code we've written
 check:
-	pep8 vdns.py vegadns_cli vegadns_client
+	pep8 vdns vegadns_cli vegadns_client
+clean-python:
+	find vegadns_client vegadns_cli -name "*.pyc" -exec rm {} \;
