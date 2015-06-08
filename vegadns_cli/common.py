@@ -25,6 +25,7 @@ config.read(configfile)
 @click.group()
 @click.option(
     "--environment",
+    "-e",
     default="default",
     help="Which environment config to use, default is 'default'"
 )
