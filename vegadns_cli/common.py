@@ -1,6 +1,6 @@
 import click
 import httplib as http_client
-from ConfigParser import SafeConfigParser
+import ConfigParser
 import logging
 import os.path
 import requests
@@ -11,9 +11,14 @@ from vegadns_client.store.file import AccessTokenStoreFile
 
 logger = logging.getLogger(__name__)
 
-# Get config
+# Use 'default' instead of 'DEFAULT'
+ConfigParser.DEFAULTSECT = 'default'
+
+# Set config defaults, get config file
 configfile = os.path.expanduser('~/.vegadns-cli-rc')
-config = SafeConfigParser()
+config = ConfigParser.SafeConfigParser(
+    {"key": "", "secret": "", "host": "http://localhost:5000"}
+)
 config.read(configfile)
 
 
@@ -36,16 +41,23 @@ def cli(ctx, environment, debug=False):
         requests_log.setLevel(logging.DEBUG)
         requests_log.propagate = True
 
+    # manage config
+    if environment != 'default' and environment not in config.sections():
+        config.add_section(environment)
+
     key = config.get(environment, 'key')
     secret = config.get(environment, 'secret')
     host = config.get(environment, 'host')
-    store = AccessTokenStoreFile(
-        key,
-        secret,
-        host,
-        prefix=".vegadns-access-token-" + environment + "-"
-    )
 
     ctx.obj['config'] = config
     ctx.obj['environment'] = environment
-    ctx.obj['client'] = client(key, secret, host, store)
+
+    config_commands = ['set_config', 'get_config']
+    if ctx.invoked_subcommand not in config_commands:
+        store = AccessTokenStoreFile(
+            key,
+            secret,
+            host,
+            prefix=".vegadns-access-token-" + environment + "-"
+        )
+        ctx.obj['client'] = client(key, secret, host, store)
