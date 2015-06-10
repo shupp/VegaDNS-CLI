@@ -5,6 +5,8 @@ from vegadns_client.groups import Groups, Group
 from vegadns_client.domains import Domains, Domain
 from vegadns_client.records import Records, Record
 from vegadns_client.exports import Export
+from vegadns_client.groupmembers import GroupMembers, GroupMember
+from vegadns_client.accounts import Accounts, Account
 
 
 class client(object):
@@ -19,6 +21,8 @@ class client(object):
         self._api_client = ApiClient(host, self._access_token)
 
         # resources
+        self.accounts = Accounts(self._api_client)
+        self.account = Account(self._api_client)
         self.groups = Groups(self._api_client)
         self.group = Group(self._api_client)
         self.domains = Domains(self._api_client)
@@ -26,6 +30,8 @@ class client(object):
         self.records = Records(self._api_client)
         self.record = Record(self._api_client)
         self.export = Export(self._api_client)
+        self.groupmember = GroupMember(self._api_client)
+        self.groupmembers = GroupMembers(self._api_client)
 
 
 class ApiClient(object):
