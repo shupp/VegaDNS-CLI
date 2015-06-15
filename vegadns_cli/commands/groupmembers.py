@@ -34,7 +34,7 @@ def list_groupmembers(ctx, group_id):
     "--is-admin",
     prompt=False,
     default=0,
-    help="Whether this use has admin privileges on the group.  1 = yes, 0 = no"
+    help="Whether this user has admin privileges on the group. 1 = yes, 0 = no"
 )
 @click.option(
     "--account-id",

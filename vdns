@@ -13,6 +13,7 @@ from vegadns_cli.commands.groups import list_groups, create_group
 from vegadns_cli.commands.groups import get_group, delete_group
 from vegadns_cli.commands.groupmembers import list_groupmembers
 from vegadns_cli.commands.config import get_config
+from vegadns_cli.commands.domaingroupmaps import list_domaingroupmaps
 
 
 if __name__ == "__main__":
