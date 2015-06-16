@@ -11,15 +11,27 @@ logger = logging.getLogger(__name__)
 
 @cli.command()
 @click.option(
+    "--group-id",
+    type=int,
+    prompt=False,
+    help="ID of the group to list domain maps for"
+)
+@click.option(
     "--domain-id",
     type=int,
-    prompt=True,
-    help="ID of the domain to list group maps for, required"
+    prompt=False,
+    help="ID of the domain to list group maps for"
 )
 @click.pass_context
-def list_domaingroupmaps(ctx, domain_id):
+def list_domaingroupmaps(ctx, domain_id, group_id):
+    if domain_id is None and group_id is None:
+        click.echo(
+            "Error: you must provide either --domain-id or --group-id"
+        )
+        ctx.exit(1)
+
     try:
-        collection = ctx.obj['client'].domaingroupmaps(domain_id)
+        collection = ctx.obj['client'].domaingroupmaps(domain_id, group_id)
         maps = []
         for map in collection:
             maps.append(map.values)

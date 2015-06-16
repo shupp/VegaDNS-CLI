@@ -3,9 +3,17 @@ from vegadns_client.exceptions import ClientException
 
 
 class DomainGroupMaps(AbstractResourceCollection):
-    def __call__(self, domain_id, filter=None):
+    def __call__(self, domain_id=None, group_id=None, filter=None):
         # filter will be supported later
-        r = self.client.get("/domaingroupmaps?domain_id=" + str(domain_id))
+
+        payload = {}
+
+        if domain_id is not None:
+            payload["domain_id"] = domain_id
+        if group_id is not None:
+            payload["group_id"] = group_id
+
+        r = self.client.get("/domaingroupmaps", params=payload)
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 
