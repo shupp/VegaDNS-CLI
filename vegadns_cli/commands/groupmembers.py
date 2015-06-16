@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 @cli.command()
 @click.option(
     "--group-id",
+    type=int,
     prompt=True,
     help="ID of the group to list members for, required"
 )
@@ -32,17 +33,20 @@ def list_groupmembers(ctx, group_id):
 @cli.command()
 @click.option(
     "--is-admin",
+    type=int,
     prompt=False,
     default=0,
     help="Whether this user has admin privileges on the group. 1 = yes, 0 = no"
 )
 @click.option(
     "--account-id",
+    type=int,
     prompt=True,
     help="ID of the account to add the group, required"
 )
 @click.option(
     "--group-id",
+    type=int,
     prompt=True,
     help="ID of the group to list members for, required"
 )
@@ -62,6 +66,7 @@ def add_groupmember(ctx, group_id, account_id, is_admin):
 @cli.command()
 @click.option(
     "--groupmember-id",
+    type=int,
     prompt=True,
     help="ID of the group member to delete, required"
 )
@@ -79,12 +84,14 @@ def delete_groupmember(ctx, groupmember_id):
 @cli.command()
 @click.option(
     "--is-admin",
+    type=int,
     prompt=False,
     default=0,
     help="Whether this use has admin privileges on the group.  1 = yes, 0 = no"
 )
 @click.option(
     "--groupmember-id",
+    type=int,
     prompt=True,
     help="ID of the group member to delete, required"
 )

@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 @cli.command()
 @click.option(
     "--group-id",
+    type=int,
     prompt=True,
     help="Group id"
 )
@@ -45,6 +46,7 @@ def list_groups(ctx):
 @cli.command()
 @click.option(
     "--group-name",
+    type=unicode,
     prompt=True,
     help="Group name to use, must be unique"
 )
@@ -67,6 +69,7 @@ def create_group(ctx, group_name):
 )
 @click.option(
     "--group-id",
+    type=int,
     prompt=True,
     help="Group id"
 )
@@ -86,6 +89,7 @@ def edit_group(ctx, group_id, group_name):
 @cli.command()
 @click.option(
     "--group-id",
+    type=int,
     prompt=True,
     help="Group id"
 )

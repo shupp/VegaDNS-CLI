@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 @cli.command()
 @click.option(
     "--domain-id",
+    type=int,
     prompt=True,
     help="ID of the domain to list records for, required"
 )

@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 @cli.command()
 @click.option(
     "--domain-id",
+    type=int,
     prompt=True,
     help="ID of the domain to list group maps for, required"
 )
@@ -33,28 +34,33 @@ def list_domaingroupmaps(ctx, domain_id):
 @click.option(
     "--can-delete",
     prompt=False,
+    type=int,
     default=1,
     help="Whether this group can delete the domain. 1 = yes, 0 = no"
 )
 @click.option(
     "--can-write",
     prompt=False,
+    type=int,
     default=1,
     help="Whether this group can modify records. 1 = yes, 0 = no"
 )
 @click.option(
     "--can-read",
     prompt=False,
+    type=int,
     default=1,
     help="Whether this group can read records. 1 = yes, 0 = no"
 )
 @click.option(
     "--group-id",
+    type=int,
     prompt=True,
     help="ID of the group to add, required"
 )
 @click.option(
     "--domain-id",
+    type=int,
     prompt=True,
     help="ID of the domain to add a group to, required"
 )
@@ -75,6 +81,7 @@ def add_domaingroupmap(ctx, domain_id, group_id,
 @cli.command()
 @click.option(
     "--map-id",
+    type=int,
     prompt=True,
     help="ID of the domain group map, required"
 )
@@ -92,6 +99,7 @@ def get_domaingroupmap(ctx, map_id):
 @cli.command()
 @click.option(
     "--map-id",
+    type=int,
     prompt=True,
     help="ID of the domain group map to delete, required"
 )
@@ -109,6 +117,7 @@ def delete_domaingroupmap(ctx, map_id):
 @cli.command()
 @click.option(
     "--can-delete",
+    type=int,
     prompt=False,
     default=1,
     help="Whether this group can delete the domain. 1 = yes, 0 = no"
@@ -116,18 +125,21 @@ def delete_domaingroupmap(ctx, map_id):
 @click.option(
     "--can-write",
     prompt=False,
+    type=int,
     default=1,
     help="Whether this group can modify records. 1 = yes, 0 = no"
 )
 @click.option(
     "--can-read",
     prompt=False,
+    type=int,
     default=1,
     help="Whether this group can read records. 1 = yes, 0 = no"
 )
 @click.option(
     "--map-id",
     prompt=True,
+    type=int,
     help="ID of the domain group map to edit, required"
 )
 @click.pass_context
