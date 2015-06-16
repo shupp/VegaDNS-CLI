@@ -24,7 +24,7 @@ class Domains(AbstractResourceCollection):
 
 class Domain(AbstractResource):
     def __call__(self, domain_id):
-        r = self.client.get("/domains/" + domain_id)
+        r = self.client.get("/domains/" + str(domain_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 

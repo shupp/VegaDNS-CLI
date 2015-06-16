@@ -24,7 +24,7 @@ class Accounts(AbstractResourceCollection):
 
 class Account(AbstractResource):
     def __call__(self, account_id):
-        r = self.client.get("/accounts/" + account_id)
+        r = self.client.get("/accounts/" + str(account_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 

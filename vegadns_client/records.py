@@ -24,7 +24,7 @@ class Records(AbstractResourceCollection):
 
 class Record(AbstractResource):
     def __call__(self, record_id):
-        r = self.client.get("/records/" + record_id)
+        r = self.client.get("/records/" + str(record_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 

@@ -5,7 +5,7 @@ from vegadns_client.exceptions import ClientException
 class GroupMembers(AbstractResourceCollection):
     def __call__(self, group_id, filter=None):
         # filter will be supported later
-        r = self.client.get("/groupmembers?group_id=" + group_id)
+        r = self.client.get("/groupmembers?group_id=" + str(group_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 
@@ -38,7 +38,7 @@ class GroupMembers(AbstractResourceCollection):
 
 class GroupMember(AbstractResource):
     def __call__(self, groupmember_id):
-        r = self.client.get("/groupmembers/" + groupmember_id)
+        r = self.client.get("/groupmembers/" + str(groupmember_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 

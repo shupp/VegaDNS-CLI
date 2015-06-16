@@ -31,7 +31,7 @@ class Groups(AbstractResourceCollection):
 
 class Group(AbstractResource):
     def __call__(self, group_id):
-        r = self.client.get("/groups/" + group_id)
+        r = self.client.get("/groups/" + str(group_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 

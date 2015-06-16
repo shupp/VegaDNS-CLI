@@ -5,7 +5,7 @@ from vegadns_client.exceptions import ClientException
 class DomainGroupMaps(AbstractResourceCollection):
     def __call__(self, domain_id, filter=None):
         # filter will be supported later
-        r = self.client.get("/domaingroupmaps?domain_id=" + domain_id)
+        r = self.client.get("/domaingroupmaps?domain_id=" + str(domain_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 
@@ -42,7 +42,7 @@ class DomainGroupMaps(AbstractResourceCollection):
 
 class DomainGroupMap(AbstractResource):
     def __call__(self, map_id):
-        r = self.client.get("/domaingroupmaps/" + map_id)
+        r = self.client.get("/domaingroupmaps/" + str(map_id))
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 
