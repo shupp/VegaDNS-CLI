@@ -71,3 +71,21 @@ def create_a_record(ctx, domain_id, name, ip, ttl=3600):
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
         ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="Record id"
+)
+@click.pass_context
+def delete_record(ctx, record_id):
+    try:
+        r = ctx.obj['client'].record(record_id)
+        r.delete()
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)

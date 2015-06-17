@@ -44,7 +44,13 @@ class Record(AbstractResource):
         return self
 
     def delete(self):
-        pass
+        # make sure we have a record_id set
+        if self.values.get('record_id', False) is False:
+            raise ClientException(400, "record_id is not set")
+
+        r = self.client.delete("/records/" + str(self.values["record_id"]))
+        if r.status_code != 200:
+            raise ClientException(r.status_code, r.content)
 
     def edit(self, group_name):
         pass
