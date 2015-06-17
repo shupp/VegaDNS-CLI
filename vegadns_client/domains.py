@@ -18,8 +18,18 @@ class Domains(AbstractResourceCollection):
 
         return domains
 
-    def create(self, name):
-        pass
+    def create(self, domain):
+        r = self.client.post(
+            "/domains",
+            data={'domain': domain}
+        )
+        if r.status_code != 201:
+            raise ClientException(r.status_code, r.content)
+        decoded = r.json()
+        m = Domain(self.client)
+        m.values = decoded["domain"]
+
+        return m
 
 
 class Domain(AbstractResource):

@@ -22,3 +22,21 @@ def list_domains(ctx):
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
         ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--domain",
+    type=unicode,
+    prompt=True,
+    help="Domain name, required and must be unique"
+)
+@click.pass_context
+def create_domain(ctx, domain):
+    try:
+        d = ctx.obj['client'].domains.create(domain)
+        click.echo(json.dumps(d.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
