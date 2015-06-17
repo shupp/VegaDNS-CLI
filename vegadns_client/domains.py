@@ -44,7 +44,33 @@ class Domain(AbstractResource):
         return self
 
     def delete(self):
-        pass
+        if self.values.get('domain_id', False) is False:
+            raise ClientException(400, "domain_id is not set")
 
-    def edit(self, group_name):
-        pass
+        r = self.client.delete(
+            "/domains/" + str(self.values["domain_id"])
+        )
+        if r.status_code != 200:
+            raise ClientException(r.status_code, r.content)
+
+    def edit(self, owner_id=None, status=None):
+        if self.values.get('domain_id', False) is False:
+            raise ClientException(400, "domain_id is not set")
+
+        data = {}
+        if owner_id is not None:
+            data["owner_id"] = owner_id
+        if status is not None:
+            data["status"] = status
+
+        r = self.client.put(
+            "/domains/" + str(self.values["domain_id"]),
+            data=data
+        )
+        if r.status_code != 200:
+            raise ClientException(r.status_code, r.content)
+
+        decoded = r.json()
+        self.values = decoded["domain"]
+
+        return self
