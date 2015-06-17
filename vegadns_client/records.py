@@ -18,8 +18,18 @@ class Records(AbstractResourceCollection):
 
         return records
 
-    def create(self, name):
-        pass
+    def create(self, data):
+        r = self.client.post(
+            "/records",
+            data=data
+        )
+        if r.status_code != 201:
+            raise ClientException(r.status_code, r.content)
+        decoded = r.json()
+        m = Record(self.client)
+        m.values = decoded["record"]
+
+        return m
 
 
 class Record(AbstractResource):
