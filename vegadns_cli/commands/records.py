@@ -75,6 +75,178 @@ def create_a_record(ctx, domain_id, name, ip, ttl=3600):
 
 @cli.command()
 @click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record to create, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the CNAME record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record to create, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the domain to list records for, required"
+)
+@click.pass_context
+def create_cname_record(ctx, domain_id, name, value, ttl=3600):
+    try:
+        data = {
+            "record_type": "CNAME",
+            "domain_id": domain_id,
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record to create, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record to create, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the domain to list records for, required"
+)
+@click.pass_context
+def create_ns_record(ctx, domain_id, name, value, ttl=3600):
+    try:
+        data = {
+            "record_type": "NS",
+            "domain_id": domain_id,
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record to create, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record to create, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the domain to list records for, required"
+)
+@click.pass_context
+def create_txt_record(ctx, domain_id, name, value, ttl=3600):
+    try:
+        data = {
+            "record_type": "TXT",
+            "domain_id": domain_id,
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record to create, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record to create, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the domain to list records for, required"
+)
+@click.pass_context
+def create_ptr_record(ctx, domain_id, name, value, ttl=3600):
+    try:
+        data = {
+            "record_type": "PTR",
+            "domain_id": domain_id,
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
     "--record-id",
     type=int,
     prompt=True,
