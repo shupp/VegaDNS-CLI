@@ -296,6 +296,70 @@ def create_txt_record(ctx, domain_id, name, value, ttl=3600):
     help="TTL of the record to create, defaults to 3600"
 )
 @click.option(
+    "--distance",
+    type=int,
+    prompt=False,
+    help="Distance of the record to create, defaults to 0"
+)
+@click.option(
+    "--port",
+    type=int,
+    prompt=True,
+    help="Port of the record to create, required"
+)
+@click.option(
+    "--weight",
+    type=int,
+    prompt=True,
+    help="Weight of the record to create, required"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record to create, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the domain to create the record for, required"
+)
+@click.pass_context
+def create_srv_record(ctx, domain_id, name, value, weight, port, distance=0, ttl=3600):
+    try:
+        data = {
+            "record_type": "SRV",
+            "domain_id": domain_id,
+            "name": name,
+            "value": value,
+            "weight": weight,
+            "port": port,
+            "distance": distance,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record to create, defaults to 3600"
+)
+@click.option(
     "--value",
     type=unicode,
     prompt=True,
