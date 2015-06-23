@@ -332,7 +332,8 @@ def create_txt_record(ctx, domain_id, name, value, ttl=3600):
     help="ID of the domain to create the record for, required"
 )
 @click.pass_context
-def create_srv_record(ctx, domain_id, name, value, weight, port, distance=0, ttl=3600):
+def create_srv_record(ctx, domain_id, name, value, weight,
+                      port, distance=0, ttl=3600):
     try:
         data = {
             "record_type": "SRV",
