@@ -8,6 +8,7 @@ from vegadns_client.exports import Export
 from vegadns_client.groupmembers import GroupMembers, GroupMember
 from vegadns_client.domaingroupmaps import DomainGroupMaps, DomainGroupMap
 from vegadns_client.accounts import Accounts, Account
+from vegadns_client.updatedata import UpdateData
 
 
 class client(object):
@@ -35,6 +36,7 @@ class client(object):
         self.groupmembers = GroupMembers(self._api_client)
         self.domaingroupmap = DomainGroupMap(self._api_client)
         self.domaingroupmaps = DomainGroupMaps(self._api_client)
+        self.updatedata = UpdateData(self._api_client)
 
 
 class ApiClient(object):
