@@ -37,7 +37,7 @@ class TestDomain(unittest.TestCase):
         self.assertEquals("example.com", domain.values["domain"])
 
         # add soa manually for now
-        data = {
+        soa = self.client.records.create({
             "record_type": "SOA",
             "domain_id": domain.values["domain_id"],
             "email": "hostmaster.example.com",
@@ -48,39 +48,35 @@ class TestDomain(unittest.TestCase):
             "minimum": 2560,
             "serial": None,
             "ttl": 86400
-        }
-        soa = self.client.records.create(data)
+        })
         self.assertEquals("hostmaster.example.com", soa.values["email"])
 
         # add ns records manually for now
-        data = {
+        ns1 = self.client.records.create({
             "record_type": "NS",
             "domain_id": domain.values["domain_id"],
             "name": "example.com",
             "value": "ns1.example.com",
             "ttl": 3600
-        }
-        ns1 = self.client.records.create(data)
+        })
         self.assertEquals("ns1.example.com", ns1.values["value"])
 
-        data = {
+        ns2 = self.client.records.create({
             "record_type": "NS",
             "domain_id": domain.values["domain_id"],
             "name": "example.com",
             "value": "ns2.example.com",
             "ttl": 3600
-        }
-        ns2 = self.client.records.create(data)
+        })
         self.assertEquals("ns2.example.com", ns2.values["value"])
 
-        data = {
+        www = self.client.records.create({
             "record_type": "A",
             "domain_id": domain.values["domain_id"],
             "name": "www.example.com",
             "value": "1.2.3.4",
             "ttl": 3600
-        }
-        www = self.client.records.create(data)
+        })
         self.assertEquals("www.example.com", www.values["name"])
         self.assertEquals("1.2.3.4", www.values["value"])
 
