@@ -41,6 +41,49 @@ def list_records(ctx, domain_id):
     "--ip",
     type=unicode,
     prompt=True,
+    help="IPv4 address of the record to edit, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record to edit, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record to edit, required"
+)
+@click.pass_context
+def edit_a_record(ctx, record_id, name, ip, ttl=3600):
+    try:
+        data = {
+            "record_type": "A",
+            "name": name,
+            "value": ip,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].record(record_id)
+        r = record.edit(data)
+        click.echo(json.dumps(r.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record to create, defaults to 3600"
+)
+@click.option(
+    "--ip",
+    type=unicode,
+    prompt=True,
     help="IPv4 address of the record to create, required"
 )
 @click.option(
