@@ -52,5 +52,15 @@ class Record(AbstractResource):
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 
-    def edit(self, group_name):
-        pass
+    def edit(self, data):
+        r = self.client.put(
+            "/records/" + str(self.values["record_id"]),
+            data=data
+        )
+        if r.status_code != 200:
+            raise ClientException(r.status_code, r.content)
+        decoded = r.json()
+        m = Record(self.client)
+        m.values = decoded["record"]
+
+        return m
