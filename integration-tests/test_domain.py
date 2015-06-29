@@ -97,6 +97,7 @@ class TestDomain(unittest.TestCase):
             records.append(record.to_text())
 
         self.assertEquals("1.2.3.4", records[0])
+        domain.delete()
 
 
 class DNS(object):
