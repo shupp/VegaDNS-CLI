@@ -291,6 +291,48 @@ def create_aaaaptr_record(ctx, domain_id, name, ip, ttl=3600):
     "--ttl",
     type=int,
     prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the CNAME record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record to edit, required"
+)
+@click.pass_context
+def edit_cname_record(ctx, record_id, name, value, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record.edit(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
     help="TTL of the record to create, defaults to 3600"
 )
 @click.option(
@@ -322,6 +364,48 @@ def create_cname_record(ctx, domain_id, name, value, ttl=3600):
             "ttl": ttl
         }
         record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record, required"
+)
+@click.pass_context
+def edit_ns_record(ctx, record_id, name, value, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
@@ -377,6 +461,48 @@ def create_ns_record(ctx, domain_id, name, value, ttl=3600):
     "--ttl",
     type=int,
     prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the record, required"
+)
+@click.pass_context
+def edit_txt_record(ctx, record_id, name, value, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
     help="TTL of the record to create, defaults to 3600"
 )
 @click.option(
@@ -408,6 +534,70 @@ def create_txt_record(ctx, domain_id, name, value, ttl=3600):
             "ttl": ttl
         }
         record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--distance",
+    type=int,
+    prompt=False,
+    help="Distance of the record, defaults to 0"
+)
+@click.option(
+    "--port",
+    type=int,
+    prompt=True,
+    help="Port of the record, required"
+)
+@click.option(
+    "--weight",
+    type=int,
+    prompt=True,
+    help="Weight of the record, required"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record to create, required"
+)
+@click.pass_context
+def edit_srv_record(ctx, record_id, name, value, weight,
+                    port, distance=0, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "weight": weight,
+            "port": port,
+            "distance": distance,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
@@ -485,6 +675,48 @@ def create_srv_record(ctx, domain_id, name, value, weight,
     "--ttl",
     type=int,
     prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record, required"
+)
+@click.pass_context
+def edit_spf_record(ctx, record_id, name, value, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
     help="TTL of the record to create, defaults to 3600"
 )
 @click.option(
@@ -516,6 +748,48 @@ def create_spf_record(ctx, domain_id, name, value, ttl=3600):
             "ttl": ttl
         }
         record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record, required"
+)
+@click.pass_context
+def edit_ptr_record(ctx, record_id, name, value, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
@@ -623,8 +897,8 @@ def create_ptr_record(ctx, domain_id, name, value, ttl=3600):
 )
 @click.pass_context
 def edit_soa_record(ctx, record_id, email, nameserver, refresh=16374,
-                      retry=2048, expire=1048576, minimum=2560, serial=None,
-                      ttl=86400):
+                    retry=2048, expire=1048576, minimum=2560, serial=None,
+                    ttl=86400):
 
     try:
         data = {
@@ -720,6 +994,55 @@ def create_soa_record(ctx, domain_id, email, nameserver, refresh=16374,
             "ttl": ttl
         }
         record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@cli.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--distance",
+    type=int,
+    prompt=False,
+    help="Distance of the record, defaults to 0"
+)
+@click.option(
+    "--value",
+    type=unicode,
+    prompt=True,
+    help="Value of the record, required"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record, required"
+)
+@click.pass_context
+def edit_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
+    try:
+        data = {
+            "name": name,
+            "value": value,
+            "distance": distance,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
