@@ -7,6 +7,7 @@ import json
 from vegadns_cli.common import cli
 from vegadns_cli.commands.accounts import list_accounts
 from vegadns_cli.commands.domains import list_domains
+from vegadns_cli.commands.default_records import list_default_records
 from vegadns_cli.commands.records import list_records
 from vegadns_cli.commands.export import export
 from vegadns_cli.commands.groups import list_groups, create_group

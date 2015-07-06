@@ -4,6 +4,7 @@ from vegadns_client.store.file import AccessTokenStoreFile
 from vegadns_client.groups import Groups, Group
 from vegadns_client.domains import Domains, Domain
 from vegadns_client.records import Records, Record
+from vegadns_client.default_records import DefaultRecords, DefaultRecord
 from vegadns_client.exports import Export
 from vegadns_client.groupmembers import GroupMembers, GroupMember
 from vegadns_client.domaingroupmaps import DomainGroupMaps, DomainGroupMap
@@ -27,6 +28,8 @@ class client(object):
         self.account = Account(self._api_client)
         self.groups = Groups(self._api_client)
         self.group = Group(self._api_client)
+        self.default_record = DefaultRecord(self._api_client)
+        self.default_records = DefaultRecords(self._api_client)
         self.domains = Domains(self._api_client)
         self.domain = Domain(self._api_client)
         self.records = Records(self._api_client)
