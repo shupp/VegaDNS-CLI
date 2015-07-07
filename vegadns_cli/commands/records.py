@@ -476,7 +476,7 @@ def create_ns_record(ctx, domain_id, name, value, ttl=3600):
     help="Hostname of the record, required"
 )
 @click.option(
-    "--domain-id",
+    "--record-id",
     type=int,
     prompt=True,
     help="ID of the record, required"
