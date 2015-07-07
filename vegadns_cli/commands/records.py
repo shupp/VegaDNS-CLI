@@ -320,7 +320,7 @@ def edit_cname_record(ctx, record_id, name, value, ttl=3600):
             "ttl": ttl
         }
         r = ctx.obj['client'].record(record_id)
-        record.edit(data)
+        record = r.edit(data)
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
