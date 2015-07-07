@@ -39,49 +39,6 @@ class TestDomain(unittest.TestCase):
     def test_create_domain(self):
         self.assertEquals("example.com", self.domain.values["domain"])
 
-        # add soas manually for now
-        soa = self.client.records.create({
-            "record_type": "SOA",
-            "domain_id": self.domain.values["domain_id"],
-            "email": "hostmaster.example.com",
-            "nameserver": "ns1.example.com",
-            "refresh": 16374,
-            "retry": 2048,
-            "expire": 1048576,
-            "minimum": 2560,
-            "serial": None,
-            "ttl": 86400
-        })
-        self.assertEquals("hostmaster.example.com", soa.values["email"])
-
-        soaptr = self.client.records.create({
-            "record_type": "SOA",
-            "domain_id": self.ptrdomain.values["domain_id"],
-            "email": "hostmaster.example.com",
-            "nameserver": "ns1.example.com",
-            "refresh": 16374,
-            "retry": 2048,
-            "expire": 1048576,
-            "minimum": 2560,
-            "serial": None,
-            "ttl": 86400
-        })
-        self.assertEquals("hostmaster.example.com", soaptr.values["email"])
-
-        soaip6ptr = self.client.records.create({
-            "record_type": "SOA",
-            "domain_id": self.ip6ptrdomain.values["domain_id"],
-            "email": "hostmaster.example.com",
-            "nameserver": "ns1.example.com",
-            "refresh": 16374,
-            "retry": 2048,
-            "expire": 1048576,
-            "minimum": 2560,
-            "serial": None,
-            "ttl": 86400
-        })
-        self.assertEquals("hostmaster.example.com", soaip6ptr.values["email"])
-
         # add ns records manually for now
         ns1 = self.client.records.create({
             "record_type": "NS",
