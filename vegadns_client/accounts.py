@@ -18,8 +18,18 @@ class Accounts(AbstractResourceCollection):
 
         return accounts
 
-    def create(self, name):
-        pass
+    def create(self, data):
+        r = self.client.post(
+            "/accounts",
+            data=data
+        )
+        if r.status_code != 201:
+            raise ClientException(r.status_code, r.content)
+        decoded = r.json()
+        m = Account(self.client)
+        m.values = decoded["account"]
+
+        return m
 
 
 class Account(AbstractResource):
@@ -34,7 +44,27 @@ class Account(AbstractResource):
         return self
 
     def delete(self):
-        pass
+        if self.values.get('account_id', False) is False:
+            raise ClientException(400, "account_id is not set")
 
-    def edit(self, group_name):
-        pass
+        r = self.client.delete(
+            "/accounts/" + str(self.values["account_id"])
+        )
+        if r.status_code != 200:
+            raise ClientException(r.status_code, r.content)
+
+    def edit(self, data):
+        if self.values.get('account_id', False) is False:
+            raise ClientException(400, "account_id is not set")
+
+        r = self.client.put(
+            "/accounts/" + str(self.values["account_id"]),
+            data=data
+        )
+        if r.status_code != 200:
+            raise ClientException(r.status_code, r.content)
+
+        decoded = r.json()
+        self.values = decoded["account"]
+
+        return self
