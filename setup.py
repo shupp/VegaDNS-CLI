@@ -12,6 +12,8 @@ setup(name='vegadns_cli',
         "click==4.0",
         "pep8==1.6.2",
         "requests==2.7.0",
+        "dnspython==1.12.0",
+        "nose==1.3.7",
       ],
       packages=[
         'vegadns_cli',
