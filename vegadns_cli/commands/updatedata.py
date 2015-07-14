@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 @cli.command()
 @click.pass_context
 def update_data(ctx):
+    """Update tinydns data (local to VegaDNS only)"""
     try:
         output = ctx.obj['client'].updatedata()
         click.echo(output)

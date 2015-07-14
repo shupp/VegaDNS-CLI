@@ -3,15 +3,16 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli
+from vegadns_cli.common import domains
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@domains.command()
 @click.pass_context
-def list_domains(ctx):
+def list(ctx):
+    """List domains"""
     try:
         collection = ctx.obj['client'].domains()
         domains = []
@@ -24,7 +25,7 @@ def list_domains(ctx):
         ctx.exit(1)
 
 
-@cli.command()
+@domains.command()
 @click.option(
     "--domain-id",
     type=int,
@@ -32,7 +33,8 @@ def list_domains(ctx):
     help="ID of the domain, required"
 )
 @click.pass_context
-def get_domain(ctx, domain_id):
+def get(ctx, domain_id):
+    """Get a single domain"""
     try:
         d = ctx.obj['client'].domain(domain_id)
         click.echo(json.dumps(d.values, indent=4))
@@ -42,7 +44,7 @@ def get_domain(ctx, domain_id):
         ctx.exit(1)
 
 
-@cli.command()
+@domains.command()
 @click.option(
     "--status",
     type=unicode,
@@ -60,7 +62,8 @@ def get_domain(ctx, domain_id):
     help="ID of the domain, required"
 )
 @click.pass_context
-def edit_domain(ctx, domain_id, owner_id, status):
+def edit(ctx, domain_id, owner_id, status):
+    """Edit a domain"""
     try:
         d = ctx.obj['client'].domain(domain_id)
         d.edit(owner_id, status)
@@ -71,7 +74,7 @@ def edit_domain(ctx, domain_id, owner_id, status):
         ctx.exit(1)
 
 
-@cli.command()
+@domains.command()
 @click.option(
     "--domain",
     type=unicode,
@@ -79,7 +82,8 @@ def edit_domain(ctx, domain_id, owner_id, status):
     help="Domain name, required and must be unique"
 )
 @click.pass_context
-def create_domain(ctx, domain):
+def create(ctx, domain):
+    """Create a new domain"""
     try:
         d = ctx.obj['client'].domains.create(domain)
         click.echo(json.dumps(d.values, indent=4))
@@ -89,7 +93,7 @@ def create_domain(ctx, domain):
         ctx.exit(1)
 
 
-@cli.command()
+@domains.command()
 @click.option(
     "--domain-id",
     type=int,
@@ -97,7 +101,8 @@ def create_domain(ctx, domain):
     help="ID of the domain, required"
 )
 @click.pass_context
-def delete_domain(ctx, domain_id):
+def delete(ctx, domain_id):
+    """Delete a domain"""
     try:
         d = ctx.obj['client'].domain(domain_id)
         d.delete()

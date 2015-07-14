@@ -3,14 +3,14 @@ import json
 import logging
 import requests
 
-from vegadns_cli.common import cli
+from vegadns_cli.common import groups
 from vegadns_client.exceptions import ClientException
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@groups.command()
 @click.option(
     "--group-id",
     type=int,
@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
     help="Group id"
 )
 @click.pass_context
-def get_group(ctx, group_id):
+def get(ctx, group_id):
+    """Get a group"""
     try:
         g = ctx.obj['client'].group(group_id)
         click.echo(json.dumps(g.values, indent=4))
@@ -28,9 +29,10 @@ def get_group(ctx, group_id):
         ctx.exit(1)
 
 
-@cli.command()
+@groups.command()
 @click.pass_context
-def list_groups(ctx):
+def list(ctx):
+    """List groups"""
     try:
         collection = ctx.obj['client'].groups()
         groups = []
@@ -43,7 +45,7 @@ def list_groups(ctx):
         ctx.exit(1)
 
 
-@cli.command()
+@groups.command()
 @click.option(
     "--group-name",
     type=unicode,
@@ -51,7 +53,8 @@ def list_groups(ctx):
     help="Group name to use, must be unique"
 )
 @click.pass_context
-def create_group(ctx, group_name):
+def create(ctx, group_name):
+    """Create a group"""
     try:
         g = ctx.obj['client'].groups.create(group_name)
         click.echo(json.dumps(g.values, indent=4))
@@ -61,7 +64,7 @@ def create_group(ctx, group_name):
         ctx.exit(1)
 
 
-@cli.command()
+@groups.command()
 @click.option(
     "--group-name",
     prompt=True,
@@ -74,7 +77,8 @@ def create_group(ctx, group_name):
     help="Group id"
 )
 @click.pass_context
-def edit_group(ctx, group_id, group_name):
+def edit(ctx, group_id, group_name):
+    """Edit a group's name, which must be unique"""
     r = ctx.obj['client'].put("/groups/" + group_id, {"name": group_name})
     if r.status_code != 200:
         click.echo("Error: " + str(r.status_code))
@@ -86,7 +90,7 @@ def edit_group(ctx, group_id, group_name):
     click.echo(json.dumps(decoded["group"], indent=4))
 
 
-@cli.command()
+@groups.command()
 @click.option(
     "--group-id",
     type=int,
@@ -94,7 +98,8 @@ def edit_group(ctx, group_id, group_name):
     help="Group id"
 )
 @click.pass_context
-def delete_group(ctx, group_id):
+def delete(ctx, group_id):
+    """Delete a group"""
     try:
         g = ctx.obj['client'].group(group_id)
         g.delete()

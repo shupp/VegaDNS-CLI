@@ -3,15 +3,16 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli
+from vegadns_cli.common import default_records
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@default_records.command()
 @click.pass_context
-def list_default_records(ctx):
+def list(ctx):
+    """List default records"""
     try:
         collection = ctx.obj['client'].default_records()
         default_records = []
@@ -24,7 +25,7 @@ def list_default_records(ctx):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -50,7 +51,8 @@ def list_default_records(ctx):
     help="ID of the default record to edit, required"
 )
 @click.pass_context
-def edit_default_a_record(ctx, record_id, name, ip, ttl=3600):
+def edit_a(ctx, record_id, name, ip, ttl=3600):
+    """Edit a default A record"""
     try:
         data = {
             "record_type": "A",
@@ -67,7 +69,7 @@ def edit_default_a_record(ctx, record_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -87,7 +89,8 @@ def edit_default_a_record(ctx, record_id, name, ip, ttl=3600):
     help="Hostname of the default record, required"
 )
 @click.pass_context
-def create_default_a_record(ctx, name, ip, ttl=3600):
+def create_a(ctx, name, ip, ttl=3600):
+    """Create a default A record"""
     try:
         data = {
             "record_type": "A",
@@ -103,7 +106,7 @@ def create_default_a_record(ctx, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -129,7 +132,8 @@ def create_default_a_record(ctx, name, ip, ttl=3600):
     help="ID of the default record to edit, required"
 )
 @click.pass_context
-def edit_default_aaaa_record(ctx, record_id, name, ip, ttl=3600):
+def edit_aaaa(ctx, record_id, name, ip, ttl=3600):
+    """Edit default AAAA record"""
     try:
         data = {
             "name": name,
@@ -145,7 +149,7 @@ def edit_default_aaaa_record(ctx, record_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -165,7 +169,8 @@ def edit_default_aaaa_record(ctx, record_id, name, ip, ttl=3600):
     help="Hostname of the default record to create, required"
 )
 @click.pass_context
-def create_default_aaaa_record(ctx, name, ip, ttl=3600):
+def create_aaaa(ctx, name, ip, ttl=3600):
+    """Create default AAAA record"""
     try:
         data = {
             "record_type": "AAAA",
@@ -181,7 +186,7 @@ def create_default_aaaa_record(ctx, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -207,7 +212,8 @@ def create_default_aaaa_record(ctx, name, ip, ttl=3600):
     help="ID of the default record to edit, required"
 )
 @click.pass_context
-def edit_default_cname_record(ctx, record_id, name, value, ttl=3600):
+def edit_cname(ctx, record_id, name, value, ttl=3600):
+    """Edit default CNAME record"""
     try:
         data = {
             "name": name,
@@ -223,7 +229,7 @@ def edit_default_cname_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -243,7 +249,8 @@ def edit_default_cname_record(ctx, record_id, name, value, ttl=3600):
     help="Hostname of the default record to create, required"
 )
 @click.pass_context
-def create_default_cname_record(ctx, name, value, ttl=3600):
+def create_cname(ctx, name, value, ttl=3600):
+    """Create default CNAME record"""
     try:
         data = {
             "record_type": "CNAME",
@@ -259,7 +266,7 @@ def create_default_cname_record(ctx, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -285,7 +292,8 @@ def create_default_cname_record(ctx, name, value, ttl=3600):
     help="ID of the default record, required"
 )
 @click.pass_context
-def edit_default_ns_record(ctx, record_id, name, value, ttl=3600):
+def edit_ns(ctx, record_id, name, value, ttl=3600):
+    """Edit default NS record"""
     try:
         data = {
             "name": name,
@@ -301,7 +309,7 @@ def edit_default_ns_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -321,7 +329,8 @@ def edit_default_ns_record(ctx, record_id, name, value, ttl=3600):
     help="Hostname of the default record to create, required"
 )
 @click.pass_context
-def create_default_ns_record(ctx, name, value, ttl=3600):
+def create_ns(ctx, name, value, ttl=3600):
+    """Create default NS record"""
     try:
         data = {
             "record_type": "NS",
@@ -337,7 +346,7 @@ def create_default_ns_record(ctx, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -363,7 +372,8 @@ def create_default_ns_record(ctx, name, value, ttl=3600):
     help="ID of the default record to edit, required"
 )
 @click.pass_context
-def edit_default_txt_record(ctx, record_id, name, value, ttl=3600):
+def edit_txt(ctx, record_id, name, value, ttl=3600):
+    """Edit default TXT record"""
     try:
         data = {
             "name": name,
@@ -379,7 +389,7 @@ def edit_default_txt_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -399,7 +409,8 @@ def edit_default_txt_record(ctx, record_id, name, value, ttl=3600):
     help="Hostname of the default record, required"
 )
 @click.pass_context
-def create_default_txt_record(ctx, name, value, ttl=3600):
+def create_txt(ctx, name, value, ttl=3600):
+    """Create default TXT record"""
     try:
         data = {
             "record_type": "TXT",
@@ -415,7 +426,7 @@ def create_default_txt_record(ctx, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -459,8 +470,8 @@ def create_default_txt_record(ctx, name, value, ttl=3600):
     help="ID of the default record, required"
 )
 @click.pass_context
-def edit_default_srv_record(ctx, record_id, name, value, weight,
-                            port, distance=0, ttl=3600):
+def edit_srv(ctx, record_id, name, value, weight, port, distance=0, ttl=3600):
+    """Edit default SRV record"""
     try:
         data = {
             "name": name,
@@ -479,7 +490,7 @@ def edit_default_srv_record(ctx, record_id, name, value, weight,
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -517,8 +528,8 @@ def edit_default_srv_record(ctx, record_id, name, value, weight,
     help="Hostname of the default record, required"
 )
 @click.pass_context
-def create_default_srv_record(ctx, name, value, weight, port,
-                              distance=0, ttl=3600):
+def create_srv(ctx, name, value, weight, port, distance=0, ttl=3600):
+    """Create default SRV record"""
     try:
         data = {
             "record_type": "SRV",
@@ -537,7 +548,7 @@ def create_default_srv_record(ctx, name, value, weight, port,
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -563,7 +574,8 @@ def create_default_srv_record(ctx, name, value, weight, port,
     help="ID of the default record, required"
 )
 @click.pass_context
-def edit_default_spf_record(ctx, record_id, name, value, ttl=3600):
+def edit_spf(ctx, record_id, name, value, ttl=3600):
+    """Edit default SPF record"""
     try:
         data = {
             "name": name,
@@ -579,7 +591,7 @@ def edit_default_spf_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -599,7 +611,8 @@ def edit_default_spf_record(ctx, record_id, name, value, ttl=3600):
     help="Hostname of the default record, required"
 )
 @click.pass_context
-def create_default_spf_record(ctx, name, value, ttl=3600):
+def create_spf(ctx, name, value, ttl=3600):
+    """Create default SPF record"""
     try:
         data = {
             "record_type": "SPF",
@@ -615,7 +628,7 @@ def create_default_spf_record(ctx, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -671,10 +684,9 @@ def create_default_spf_record(ctx, name, value, ttl=3600):
     help="ID of the SOA record to edit, required"
 )
 @click.pass_context
-def edit_default_soa_record(ctx, record_id, email, nameserver, refresh=16374,
-                            retry=2048, expire=1048576, minimum=2560,
-                            serial=None, ttl=86400):
-
+def edit_soa(ctx, record_id, email, nameserver, refresh=16374, retry=2048,
+             expire=1048576, minimum=2560, serial=None, ttl=86400):
+    """Edit default SOA record"""
     try:
         data = {
             "email": email,
@@ -695,7 +707,7 @@ def edit_default_soa_record(ctx, record_id, email, nameserver, refresh=16374,
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -745,10 +757,9 @@ def edit_default_soa_record(ctx, record_id, email, nameserver, refresh=16374,
     help="Domain contact, i.e. hostmaster.example.com, required"
 )
 @click.pass_context
-def create_default_soa_record(ctx, email, nameserver, refresh=16374,
-                              retry=2048, expire=1048576, minimum=2560,
-                              serial=None, ttl=86400):
-
+def create_soa(ctx, email, nameserver, refresh=16374, retry=2048,
+               expire=1048576, minimum=2560, serial=None, ttl=86400):
+    """Create default SOA record (limited to one)"""
     try:
         data = {
             "record_type": "SOA",
@@ -769,7 +780,7 @@ def create_default_soa_record(ctx, email, nameserver, refresh=16374,
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -801,7 +812,8 @@ def create_default_soa_record(ctx, email, nameserver, refresh=16374,
     help="ID of the default record, required"
 )
 @click.pass_context
-def edit_default_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
+def edit_mx(ctx, record_id, name, value, distance=0, ttl=3600):
+    """Edit default MX record"""
     try:
         data = {
             "name": name,
@@ -818,7 +830,7 @@ def edit_default_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -844,7 +856,8 @@ def edit_default_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
     help="Hostname of the default record, required"
 )
 @click.pass_context
-def create_default_mx_record(ctx, name, value, distance=0, ttl=3600):
+def create_mx(ctx, name, value, distance=0, ttl=3600):
+    """Create default MX record"""
     try:
         data = {
             "record_type": "MX",
@@ -861,7 +874,7 @@ def create_default_mx_record(ctx, name, value, distance=0, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@default_records.command()
 @click.option(
     "--record-id",
     type=int,
@@ -869,7 +882,8 @@ def create_default_mx_record(ctx, name, value, distance=0, ttl=3600):
     help="Record id"
 )
 @click.pass_context
-def delete_default_record(ctx, record_id):
+def delete(ctx, record_id):
+    """Delete a default record"""
     try:
         r = ctx.obj['client'].default_record(record_id)
         r.delete()

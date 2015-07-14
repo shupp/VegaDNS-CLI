@@ -16,10 +16,10 @@ ConfigParser.DEFAULTSECT = 'default'
 
 # Set config defaults, get config file
 configfile = os.path.expanduser('~/.vegadns-cli-rc')
-config = ConfigParser.SafeConfigParser(
+config_obj = ConfigParser.SafeConfigParser(
     {"key": "", "secret": "", "host": "http://localhost:5000"}
 )
-config.read(configfile)
+config_obj.read(configfile)
 
 
 @click.group()
@@ -29,9 +29,10 @@ config.read(configfile)
     default="default",
     help="Which environment config to use, default is 'default'"
 )
-@click.option("--debug", "-d", is_flag=True, help="Enables debug logs")
+@click.option("--debug", "-d", is_flag=True, help="Enables HTTP debug logs")
 @click.pass_context
 def cli(ctx, environment, debug=False):
+    """A command line interface for managing VegaDNS"""
     if debug:
         http_client.HTTPConnection.debuglevel = 1
 
@@ -43,14 +44,14 @@ def cli(ctx, environment, debug=False):
         requests_log.propagate = True
 
     # manage config
-    if environment != 'default' and environment not in config.sections():
-        config.add_section(environment)
+    if environment != 'default' and environment not in config_obj.sections():
+        config_obj.add_section(environment)
 
-    key = config.get(environment, 'key')
-    secret = config.get(environment, 'secret')
-    host = config.get(environment, 'host')
+    key = config_obj.get(environment, 'key')
+    secret = config_obj.get(environment, 'secret')
+    host = config_obj.get(environment, 'host')
 
-    ctx.obj['config'] = config
+    ctx.obj['config'] = config_obj
     ctx.obj['environment'] = environment
 
     config_commands = ['set_config', 'get_config']
@@ -62,3 +63,75 @@ def cli(ctx, environment, debug=False):
             prefix=".vegadns-access-token-" + environment + "-"
         )
         ctx.obj['client'] = client(key, secret, host, store)
+
+
+@click.group()
+@click.pass_context
+def domains(ctx):
+    """Manage domains"""
+    pass
+
+cli.add_command(domains)
+
+
+@click.group()
+@click.pass_context
+def records(ctx):
+    """Manage a domain's records"""
+    pass
+
+cli.add_command(records)
+
+
+@click.group()
+@click.pass_context
+def default_records(ctx):
+    """Manage default records"""
+    pass
+
+cli.add_command(default_records)
+
+
+@click.group()
+@click.pass_context
+def config(ctx):
+    """Manage the config for the current environment"""
+    pass
+
+cli.add_command(config)
+
+
+@click.group()
+@click.pass_context
+def accounts(ctx):
+    """Manage accounts"""
+    pass
+
+cli.add_command(accounts)
+
+
+@click.group()
+@click.pass_context
+def domaingroupmaps(ctx):
+    """Manage domain to group mappings/permissions"""
+    pass
+
+cli.add_command(domaingroupmaps)
+
+
+@click.group()
+@click.pass_context
+def groups(ctx):
+    """Manage groups"""
+    pass
+
+cli.add_command(groups)
+
+
+@click.group()
+@click.pass_context
+def groupmembers(ctx):
+    """Manage group members"""
+    pass
+
+cli.add_command(groupmembers)

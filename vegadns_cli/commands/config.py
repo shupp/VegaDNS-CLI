@@ -3,12 +3,13 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli, configfile
+from vegadns_cli.common import cli, config, configfile
 
 
-@cli.command()
+@config.command()
 @click.pass_context
-def get_config(ctx):
+def get(ctx):
+    """Get the current config values"""
     environment = ctx.obj['environment']
     key = ctx.obj['config'].get(ctx.obj['environment'], 'key')
     secret = ctx.obj['config'].get(ctx.obj['environment'], 'secret')
@@ -20,7 +21,7 @@ def get_config(ctx):
     click.echo("host=" + host)
 
 
-@cli.command()
+@config.command()
 @click.option(
     "--key",
     prompt=True,
@@ -37,7 +38,8 @@ def get_config(ctx):
     help="API host URL, required"
 )
 @click.pass_context
-def set_config(ctx, key, secret, host):
+def set(ctx, key, secret, host):
+    """Set current config values"""
     environment = ctx.obj['environment']
 
     c = ctx.obj['config']

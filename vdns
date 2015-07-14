@@ -5,17 +5,17 @@ import requests
 import json
 
 from vegadns_cli.common import cli
-from vegadns_cli.commands.accounts import list_accounts
-from vegadns_cli.commands.domains import list_domains
-from vegadns_cli.commands.default_records import list_default_records
-from vegadns_cli.commands.records import list_records
-from vegadns_cli.commands.export import export
-from vegadns_cli.commands.groups import list_groups, create_group
-from vegadns_cli.commands.groups import get_group, delete_group
-from vegadns_cli.commands.groupmembers import list_groupmembers
-from vegadns_cli.commands.config import get_config
-from vegadns_cli.commands.domaingroupmaps import list_domaingroupmaps
-from vegadns_cli.commands.updatedata import update_data
+import vegadns_cli.commands.accounts
+import vegadns_cli.commands.domains
+import vegadns_cli.commands.default_records
+import vegadns_cli.commands.records
+import vegadns_cli.commands.export
+import vegadns_cli.commands.groups
+import vegadns_cli.commands.groups
+import vegadns_cli.commands.groupmembers
+import vegadns_cli.commands.config
+import vegadns_cli.commands.domaingroupmaps
+import vegadns_cli.commands.updatedata
 
 
 if __name__ == "__main__":

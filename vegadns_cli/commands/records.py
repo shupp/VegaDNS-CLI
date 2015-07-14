@@ -3,13 +3,13 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli
+from vegadns_cli.common import records
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--domain-id",
     type=int,
@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def list_records(ctx, domain_id):
+def list(ctx, domain_id):
+    """List all records for a domain"""
     try:
         collection = ctx.obj['client'].records(domain_id)
         records = []
@@ -30,7 +31,7 @@ def list_records(ctx, domain_id):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -56,7 +57,8 @@ def list_records(ctx, domain_id):
     help="ID of the record to edit, required"
 )
 @click.pass_context
-def edit_a_record(ctx, record_id, name, ip, ttl=3600):
+def edit_a(ctx, record_id, name, ip, ttl=3600):
+    """Edit an A record"""
     try:
         data = {
             "record_type": "A",
@@ -73,7 +75,7 @@ def edit_a_record(ctx, record_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -99,7 +101,8 @@ def edit_a_record(ctx, record_id, name, ip, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_a_record(ctx, domain_id, name, ip, ttl=3600):
+def create_a(ctx, domain_id, name, ip, ttl=3600):
+    """Create A record"""
     try:
         data = {
             "record_type": "A",
@@ -116,7 +119,7 @@ def create_a_record(ctx, domain_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -142,7 +145,8 @@ def create_a_record(ctx, domain_id, name, ip, ttl=3600):
     help="Record ID to edit, required"
 )
 @click.pass_context
-def edit_aaaa_record(ctx, record_id, name, ip, ttl=3600):
+def edit_aaaa(ctx, record_id, name, ip, ttl=3600):
+    """Edit a AAAA record"""
     try:
         data = {
             "name": name,
@@ -158,7 +162,7 @@ def edit_aaaa_record(ctx, record_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -184,7 +188,8 @@ def edit_aaaa_record(ctx, record_id, name, ip, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_aaaa_record(ctx, domain_id, name, ip, ttl=3600):
+def create_aaaa(ctx, domain_id, name, ip, ttl=3600):
+    """Create a AAAA record"""
     try:
         data = {
             "record_type": "AAAA",
@@ -201,7 +206,7 @@ def create_aaaa_record(ctx, domain_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -227,7 +232,8 @@ def create_aaaa_record(ctx, domain_id, name, ip, ttl=3600):
     help="Record ID to edit, required"
 )
 @click.pass_context
-def edit_aaaaptr_record(ctx, record_id, name, ip, ttl=3600):
+def edit_aaaaptr(ctx, record_id, name, ip, ttl=3600):
+    """Edit a AAAA+PTR record"""
     try:
         data = {
             "name": name,
@@ -243,7 +249,7 @@ def edit_aaaaptr_record(ctx, record_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -269,7 +275,8 @@ def edit_aaaaptr_record(ctx, record_id, name, ip, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_aaaaptr_record(ctx, domain_id, name, ip, ttl=3600):
+def create_aaaaptr(ctx, domain_id, name, ip, ttl=3600):
+    """Create a AAAA+PTR record"""
     try:
         data = {
             "record_type": "AAAA+PTR",
@@ -286,7 +293,7 @@ def create_aaaaptr_record(ctx, domain_id, name, ip, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -312,7 +319,8 @@ def create_aaaaptr_record(ctx, domain_id, name, ip, ttl=3600):
     help="ID of the record to edit, required"
 )
 @click.pass_context
-def edit_cname_record(ctx, record_id, name, value, ttl=3600):
+def edit_cname(ctx, record_id, name, value, ttl=3600):
+    """Edit a CNAME record"""
     try:
         data = {
             "name": name,
@@ -328,7 +336,7 @@ def edit_cname_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -354,7 +362,8 @@ def edit_cname_record(ctx, record_id, name, value, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_cname_record(ctx, domain_id, name, value, ttl=3600):
+def create_cname(ctx, domain_id, name, value, ttl=3600):
+    """Create a CNAME record"""
     try:
         data = {
             "record_type": "CNAME",
@@ -371,7 +380,7 @@ def create_cname_record(ctx, domain_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -397,7 +406,8 @@ def create_cname_record(ctx, domain_id, name, value, ttl=3600):
     help="ID of the record, required"
 )
 @click.pass_context
-def edit_ns_record(ctx, record_id, name, value, ttl=3600):
+def edit_ns(ctx, record_id, name, value, ttl=3600):
+    """Edit an NS record"""
     try:
         data = {
             "name": name,
@@ -413,7 +423,7 @@ def edit_ns_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -439,7 +449,8 @@ def edit_ns_record(ctx, record_id, name, value, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_ns_record(ctx, domain_id, name, value, ttl=3600):
+def create_ns(ctx, domain_id, name, value, ttl=3600):
+    """Create an NS record"""
     try:
         data = {
             "record_type": "NS",
@@ -456,7 +467,7 @@ def create_ns_record(ctx, domain_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -482,7 +493,8 @@ def create_ns_record(ctx, domain_id, name, value, ttl=3600):
     help="ID of the record, required"
 )
 @click.pass_context
-def edit_txt_record(ctx, record_id, name, value, ttl=3600):
+def edit_txt(ctx, record_id, name, value, ttl=3600):
+    """Edit a TXT record"""
     try:
         data = {
             "name": name,
@@ -498,7 +510,7 @@ def edit_txt_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -524,7 +536,8 @@ def edit_txt_record(ctx, record_id, name, value, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_txt_record(ctx, domain_id, name, value, ttl=3600):
+def create_txt(ctx, domain_id, name, value, ttl=3600):
+    """Create a TXT record"""
     try:
         data = {
             "record_type": "TXT",
@@ -541,7 +554,7 @@ def create_txt_record(ctx, domain_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -585,8 +598,8 @@ def create_txt_record(ctx, domain_id, name, value, ttl=3600):
     help="ID of the record to create, required"
 )
 @click.pass_context
-def edit_srv_record(ctx, record_id, name, value, weight,
-                    port, distance=0, ttl=3600):
+def edit_srv(ctx, record_id, name, value, weight, port, distance=0, ttl=3600):
+    """Edit an SRV record"""
     try:
         data = {
             "name": name,
@@ -605,7 +618,7 @@ def edit_srv_record(ctx, record_id, name, value, weight,
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -649,8 +662,9 @@ def edit_srv_record(ctx, record_id, name, value, weight,
     help="ID of the domain to create the record for, required"
 )
 @click.pass_context
-def create_srv_record(ctx, domain_id, name, value, weight,
-                      port, distance=0, ttl=3600):
+def create_srv(ctx, domain_id, name, value, weight, port, distance=0,
+               ttl=3600):
+    """Create an SRV record"""
     try:
         data = {
             "record_type": "SRV",
@@ -670,7 +684,7 @@ def create_srv_record(ctx, domain_id, name, value, weight,
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -696,7 +710,8 @@ def create_srv_record(ctx, domain_id, name, value, weight,
     help="ID of the record, required"
 )
 @click.pass_context
-def edit_spf_record(ctx, record_id, name, value, ttl=3600):
+def edit_spf(ctx, record_id, name, value, ttl=3600):
+    """Edit an SPF record"""
     try:
         data = {
             "name": name,
@@ -712,7 +727,7 @@ def edit_spf_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -738,7 +753,8 @@ def edit_spf_record(ctx, record_id, name, value, ttl=3600):
     help="ID of the domain to create the record for, required"
 )
 @click.pass_context
-def create_spf_record(ctx, domain_id, name, value, ttl=3600):
+def create_spf(ctx, domain_id, name, value, ttl=3600):
+    """Create an SPF record"""
     try:
         data = {
             "record_type": "SPF",
@@ -755,7 +771,7 @@ def create_spf_record(ctx, domain_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -781,7 +797,8 @@ def create_spf_record(ctx, domain_id, name, value, ttl=3600):
     help="ID of the record, required"
 )
 @click.pass_context
-def edit_ptr_record(ctx, record_id, name, value, ttl=3600):
+def edit_ptr(ctx, record_id, name, value, ttl=3600):
+    """Edit a PTR record"""
     try:
         data = {
             "name": name,
@@ -797,7 +814,7 @@ def edit_ptr_record(ctx, record_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -823,7 +840,8 @@ def edit_ptr_record(ctx, record_id, name, value, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_ptr_record(ctx, domain_id, name, value, ttl=3600):
+def create_ptr(ctx, domain_id, name, value, ttl=3600):
+    """Create a PTR record"""
     try:
         data = {
             "record_type": "PTR",
@@ -840,7 +858,7 @@ def create_ptr_record(ctx, domain_id, name, value, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -896,10 +914,9 @@ def create_ptr_record(ctx, domain_id, name, value, ttl=3600):
     help="ID of the SOA record to edit, required"
 )
 @click.pass_context
-def edit_soa_record(ctx, record_id, email, nameserver, refresh=16374,
-                    retry=2048, expire=1048576, minimum=2560, serial=None,
-                    ttl=86400):
-
+def edit_soa(ctx, record_id, email, nameserver, refresh=16374, retry=2048,
+             expire=1048576, minimum=2560, serial=None, ttl=86400):
+    """Edit an SOA record"""
     try:
         data = {
             "email": email,
@@ -920,7 +937,7 @@ def edit_soa_record(ctx, record_id, email, nameserver, refresh=16374,
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -976,10 +993,9 @@ def edit_soa_record(ctx, record_id, email, nameserver, refresh=16374,
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_soa_record(ctx, domain_id, email, nameserver, refresh=16374,
-                      retry=2048, expire=1048576, minimum=2560, serial=None,
-                      ttl=86400):
-
+def create_soa(ctx, domain_id, email, nameserver, refresh=16374, retry=2048,
+               expire=1048576, minimum=2560, serial=None, ttl=86400):
+    """Create an SOA record (limit one per domain)"""
     try:
         data = {
             "record_type": "SOA",
@@ -1001,7 +1017,7 @@ def create_soa_record(ctx, domain_id, email, nameserver, refresh=16374,
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -1033,7 +1049,8 @@ def create_soa_record(ctx, domain_id, email, nameserver, refresh=16374,
     help="ID of the record, required"
 )
 @click.pass_context
-def edit_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
+def edit_mx(ctx, record_id, name, value, distance=0, ttl=3600):
+    """Edit an MX record"""
     try:
         data = {
             "name": name,
@@ -1050,7 +1067,7 @@ def edit_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--ttl",
     type=int,
@@ -1082,7 +1099,8 @@ def edit_mx_record(ctx, record_id, name, value, distance=0, ttl=3600):
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def create_mx_record(ctx, domain_id, name, value, distance=0, ttl=3600):
+def create_mx(ctx, domain_id, name, value, distance=0, ttl=3600):
+    """Create an MX record"""
     try:
         data = {
             "record_type": "MX",
@@ -1100,7 +1118,7 @@ def create_mx_record(ctx, domain_id, name, value, distance=0, ttl=3600):
         ctx.exit(1)
 
 
-@cli.command()
+@records.command()
 @click.option(
     "--record-id",
     type=int,
@@ -1108,7 +1126,8 @@ def create_mx_record(ctx, domain_id, name, value, distance=0, ttl=3600):
     help="Record id"
 )
 @click.pass_context
-def delete_record(ctx, record_id):
+def delete(ctx, record_id):
+    """Delete a record"""
     try:
         r = ctx.obj['client'].record(record_id)
         r.delete()

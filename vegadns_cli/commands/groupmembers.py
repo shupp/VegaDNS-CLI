@@ -3,13 +3,13 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli
+from vegadns_cli.common import groupmembers
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@groupmembers.command()
 @click.option(
     "--group-id",
     type=int,
@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
     help="ID of the group to list members for, required"
 )
 @click.pass_context
-def list_groupmembers(ctx, group_id):
+def list(ctx, group_id):
+    """List members for a group"""
     try:
         collection = ctx.obj['client'].groupmembers(group_id)
         members = []
@@ -30,7 +31,7 @@ def list_groupmembers(ctx, group_id):
         ctx.exit(1)
 
 
-@cli.command()
+@groupmembers.command()
 @click.option(
     "--is-admin",
     type=int,
@@ -51,7 +52,8 @@ def list_groupmembers(ctx, group_id):
     help="ID of the group to list members for, required"
 )
 @click.pass_context
-def add_groupmember(ctx, group_id, account_id, is_admin):
+def add(ctx, group_id, account_id, is_admin):
+    """Add a member to a group"""
     try:
         g = ctx.obj['client'].groupmembers.create(
             group_id, account_id, is_admin
@@ -63,7 +65,7 @@ def add_groupmember(ctx, group_id, account_id, is_admin):
         ctx.exit(1)
 
 
-@cli.command()
+@groupmembers.command()
 @click.option(
     "--groupmember-id",
     type=int,
@@ -71,7 +73,8 @@ def add_groupmember(ctx, group_id, account_id, is_admin):
     help="ID of the group member to delete, required"
 )
 @click.pass_context
-def delete_groupmember(ctx, groupmember_id):
+def delete(ctx, groupmember_id):
+    """Delete a member from a group"""
     try:
         g = ctx.obj['client'].groupmember(groupmember_id)
         g.delete()
@@ -81,7 +84,7 @@ def delete_groupmember(ctx, groupmember_id):
         ctx.exit(1)
 
 
-@cli.command()
+@groupmembers.command()
 @click.option(
     "--is-admin",
     type=int,
@@ -96,7 +99,8 @@ def delete_groupmember(ctx, groupmember_id):
     help="ID of the group member to delete, required"
 )
 @click.pass_context
-def edit_groupmember(ctx, groupmember_id, is_admin):
+def edit(ctx, groupmember_id, is_admin):
+    """Edit a group member's admin status"""
     try:
         g = ctx.obj['client'].groupmember(groupmember_id)
         g.edit(is_admin)

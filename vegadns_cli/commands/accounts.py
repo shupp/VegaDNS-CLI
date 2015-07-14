@@ -3,13 +3,13 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli
+from vegadns_cli.common import accounts
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@accounts.command()
 @click.option(
     "--account-id",
     type=int,
@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
     help="ID of the account, required"
 )
 @click.pass_context
-def delete_account(ctx, account_id):
+def delete(ctx, account_id):
+    """Delete an account"""
     try:
         a = ctx.obj['client'].account(account_id)
         a.delete()
@@ -27,7 +28,7 @@ def delete_account(ctx, account_id):
         ctx.exit(1)
 
 
-@cli.command()
+@accounts.command()
 @click.option(
     "--password",
     type=unicode,
@@ -41,7 +42,8 @@ def delete_account(ctx, account_id):
     help="Account ID, required"
 )
 @click.pass_context
-def set_account_password(ctx, account_id, password):
+def set_password(ctx, account_id, password):
+    """Set the password for an account"""
     try:
         a = ctx.obj['client'].account(account_id)
         data = {
@@ -61,7 +63,7 @@ def set_account_password(ctx, account_id, password):
         ctx.exit(1)
 
 
-@cli.command()
+@accounts.command()
 @click.option(
     "--status",
     type=unicode,
@@ -105,8 +107,9 @@ def set_account_password(ctx, account_id, password):
     help="Account ID, required"
 )
 @click.pass_context
-def edit_account(ctx, account_id, first_name, last_name,
-                 email, account_type, phone, status='active'):
+def edit(ctx, account_id, first_name, last_name,
+         email, account_type, phone, status='active'):
+    """Edit an account"""
     try:
         a = ctx.obj['client'].account(account_id)
         data = {
@@ -125,7 +128,7 @@ def edit_account(ctx, account_id, first_name, last_name,
         ctx.exit(1)
 
 
-@cli.command()
+@accounts.command()
 @click.option(
     "--phone",
     type=unicode,
@@ -163,8 +166,9 @@ def edit_account(ctx, account_id, first_name, last_name,
     help="First Name, required"
 )
 @click.pass_context
-def create_account(ctx, first_name, last_name, email,
-                   account_type, password, phone):
+def create(ctx, first_name, last_name, email,
+           account_type, password, phone):
+    """Create an account"""
     try:
         data = {
             'first_name': first_name,
@@ -182,7 +186,7 @@ def create_account(ctx, first_name, last_name, email,
         ctx.exit(1)
 
 
-@cli.command()
+@accounts.command()
 @click.option(
     "--account-id",
     type=int,
@@ -190,7 +194,8 @@ def create_account(ctx, first_name, last_name, email,
     help="ID of the account, required"
 )
 @click.pass_context
-def get_account(ctx, account_id):
+def get(ctx, account_id):
+    """Get a single account"""
     try:
         a = ctx.obj['client'].account(account_id)
         click.echo(json.dumps(a.values, indent=4))
@@ -200,9 +205,10 @@ def get_account(ctx, account_id):
         ctx.exit(1)
 
 
-@cli.command()
+@accounts.command()
 @click.pass_context
-def list_accounts(ctx):
+def list(ctx):
+    """List all accounts"""
     try:
         collection = ctx.obj['client'].accounts()
         accounts = []

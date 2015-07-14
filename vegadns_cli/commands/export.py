@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 @cli.command()
 @click.pass_context
 def export(ctx):
+    """Export active domains in tinydns data format"""
     try:
         datafile = ctx.obj['client'].export(format="tinydns")
         click.echo(datafile)

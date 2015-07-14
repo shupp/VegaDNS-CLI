@@ -3,13 +3,13 @@ import json
 import logging
 
 from vegadns_client.exceptions import ClientException
-from vegadns_cli.common import cli
+from vegadns_cli.common import domaingroupmaps
 
 
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
+@domaingroupmaps.command()
 @click.option(
     "--group-id",
     type=int,
@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
     help="ID of the domain to list group maps for"
 )
 @click.pass_context
-def list_domaingroupmaps(ctx, domain_id, group_id):
+def list(ctx, domain_id, group_id):
+    """List maps for a domain group"""
     if domain_id is None and group_id is None:
         click.echo(
             "Error: you must provide either --domain-id or --group-id"
@@ -42,7 +43,7 @@ def list_domaingroupmaps(ctx, domain_id, group_id):
         ctx.exit(1)
 
 
-@cli.command()
+@domaingroupmaps.command()
 @click.option(
     "--can-delete",
     prompt=False,
@@ -77,8 +78,8 @@ def list_domaingroupmaps(ctx, domain_id, group_id):
     help="ID of the domain to add a group to, required"
 )
 @click.pass_context
-def add_domaingroupmap(ctx, domain_id, group_id,
-                       can_read, can_write, can_delete):
+def add(ctx, domain_id, group_id, can_read, can_write, can_delete):
+    """Add a domain group map"""
     try:
         m = ctx.obj['client'].domaingroupmaps.create(
             domain_id, group_id, can_read, can_write, can_delete
@@ -90,7 +91,7 @@ def add_domaingroupmap(ctx, domain_id, group_id,
         ctx.exit(1)
 
 
-@cli.command()
+@domaingroupmaps.command()
 @click.option(
     "--map-id",
     type=int,
@@ -98,7 +99,8 @@ def add_domaingroupmap(ctx, domain_id, group_id,
     help="ID of the domain group map, required"
 )
 @click.pass_context
-def get_domaingroupmap(ctx, map_id):
+def get(ctx, map_id):
+    """Get a single domain group map"""
     try:
         m = ctx.obj['client'].domaingroupmap(map_id)
         click.echo(json.dumps(m.values, indent=4))
@@ -108,7 +110,7 @@ def get_domaingroupmap(ctx, map_id):
         ctx.exit(1)
 
 
-@cli.command()
+@domaingroupmaps.command()
 @click.option(
     "--map-id",
     type=int,
@@ -116,7 +118,8 @@ def get_domaingroupmap(ctx, map_id):
     help="ID of the domain group map to delete, required"
 )
 @click.pass_context
-def delete_domaingroupmap(ctx, map_id):
+def delete(ctx, map_id):
+    """Delete a domain group map"""
     try:
         m = ctx.obj['client'].domaingroupmap(map_id)
         m.delete()
@@ -126,7 +129,7 @@ def delete_domaingroupmap(ctx, map_id):
         ctx.exit(1)
 
 
-@cli.command()
+@domaingroupmaps.command()
 @click.option(
     "--can-delete",
     type=int,
@@ -155,7 +158,8 @@ def delete_domaingroupmap(ctx, map_id):
     help="ID of the domain group map to edit, required"
 )
 @click.pass_context
-def edit_domaingroupmap(ctx, map_id, can_read, can_write, can_delete):
+def edit(ctx, map_id, can_read, can_write, can_delete):
+    """Edit a domain group map"""
     try:
         m = ctx.obj['client'].domaingroupmap(map_id)
         m.edit(can_read, can_write, can_delete)
