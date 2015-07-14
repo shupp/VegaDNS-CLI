@@ -8,11 +8,17 @@ from integration_tests.dns_client import DNS
 
 class TestDomain(unittest.TestCase):
     def setUp(self):
-        k = "6d145840921dabcc85907bff35e607289abdad04b7900196ee45f5a4e12ac369"
-        s = "b1163b6387318dbfebaca5740ddb024ad61fa18831bb887ea085036f8df9c180"
-        h = "http://vegadns.docker:80"
-        self.ns_server = "vegadns.docker"
+        dk = "6d145840921dabcc85907bff35e607289abdad04b7900196ee45f5a4e12ac369"
+        ds = "b1163b6387318dbfebaca5740ddb024ad61fa18831bb887ea085036f8df9c180"
+        dh = "http://localhost:80"
+        dn = "localhost"
 
+        k = os.getenv("KEY", default=dk)
+        s = os.getenv("SECRET", default=ds)
+        h = os.getenv("HOST", default=dh)
+        n = os.getenv("NAMESERVER", default=dn)
+
+        self.ns_server = n
         self.client = vegadns_client.client(k, s, h)
         self.remove_token_file()
 
