@@ -26,6 +26,7 @@ def delete_account(ctx, account_id):
         click.echo("Response: " + e.message)
         ctx.exit(1)
 
+
 @cli.command()
 @click.option(
     "--password",
