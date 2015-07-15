@@ -16,6 +16,7 @@ import vegadns_cli.commands.groupmembers
 import vegadns_cli.commands.config
 import vegadns_cli.commands.domaingroupmaps
 import vegadns_cli.commands.updatedata
+import vegadns_cli.commands.apikeys
 
 
 if __name__ == "__main__":

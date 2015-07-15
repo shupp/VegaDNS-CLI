@@ -135,3 +135,12 @@ def groupmembers(ctx):
     pass
 
 cli.add_command(groupmembers)
+
+
+@click.group()
+@click.pass_context
+def apikeys(ctx):
+    """Manage account api keys"""
+    pass
+
+cli.add_command(apikeys)
