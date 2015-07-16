@@ -33,6 +33,7 @@ def delete(ctx, account_id):
     "--password",
     type=unicode,
     prompt=True,
+    hide_input=True,
     help="Clear text password, required"
 )
 @click.option(
