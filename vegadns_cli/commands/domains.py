@@ -9,6 +9,14 @@ from vegadns_cli.common import domains
 logger = logging.getLogger(__name__)
 
 
+def get_all_domains(ctx):
+    collection = ctx.obj['client'].domains()
+    domains = []
+    for domain in collection:
+        domains.append(domain.values)
+    return domains
+
+
 @domains.command()
 @click.pass_context
 def list(ctx):
@@ -27,17 +35,36 @@ def list(ctx):
 
 @domains.command()
 @click.option(
+    "--domain",
+    type=unicode,
+    help="domain name"
+)
+@click.option(
     "--domain-id",
     type=int,
-    prompt=True,
-    help="ID of the domain, required"
+    help="ID of the domain, takes precedence"
 )
 @click.pass_context
-def get(ctx, domain_id):
+def get(ctx, domain_id=None, domain=None):
     """Get a single domain"""
     try:
-        d = ctx.obj['client'].domain(domain_id)
-        click.echo(json.dumps(d.values, indent=4))
+        if domain_id is not None:
+            d = ctx.obj['client'].domain(domain_id)
+            click.echo(json.dumps(d.values, indent=4))
+            ctx.exit(0)
+
+        if domain is None:
+            domain = click.prompt('Please enter the domain name')
+
+        domains = get_all_domains(ctx)
+        for d in domains:
+            if d["domain"] == domain:
+                click.echo(json.dumps(d, indent=4))
+                ctx.exit(0)
+
+        # not found
+        click.echo("Error: domain not found: " + domain)
+        ctx.exit(1)
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
