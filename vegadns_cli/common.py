@@ -54,7 +54,7 @@ def cli(ctx, environment, debug=False):
     ctx.obj['config'] = config_obj
     ctx.obj['environment'] = environment
 
-    config_commands = ['set_config', 'get_config']
+    config_commands = ['config']
     if ctx.invoked_subcommand not in config_commands:
         store = AccessTokenStoreFile(
             key,
