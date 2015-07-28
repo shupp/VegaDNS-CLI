@@ -28,7 +28,7 @@ class AccessTokenStoreAbstract(object):
 
     def get_access_token_from_api(self):
         r = requests.post(
-            self.host.trim("/") + "/" + str(self.version) + "/token",
+            self.host.rtrim("/") + "/" + str(self.version) + "/token",
             auth=auth.HTTPBasicAuth(self.key, self.secret),
             data={"grant_type": "client_credentials"}
         )
