@@ -47,7 +47,7 @@ class client(object):
 
 class ApiClient(object):
     def __init__(self, host, access_token=None, version=1.0):
-        self.host = host.rtrim("/") + "/" + str(version)
+        self.host = host.rstrip("/") + "/" + str(version)
         self.access_token = access_token
 
     def get(self, path, params=None):
