@@ -4,10 +4,11 @@ import time
 
 
 class AccessTokenStoreAbstract(object):
-    def __init__(self, key, secret, host):
+    def __init__(self, key, secret, host, version=1.0):
         self.key = key
         self.secret = secret
         self.host = host
+        self.version = version
         self.now = int(time.time())
 
     def get(self):
@@ -27,7 +28,7 @@ class AccessTokenStoreAbstract(object):
 
     def get_access_token_from_api(self):
         r = requests.post(
-            self.host + "/token",
+            self.host.trim("/") + "/" + str(self.version) + "/token",
             auth=auth.HTTPBasicAuth(self.key, self.secret),
             data={"grant_type": "client_credentials"}
         )

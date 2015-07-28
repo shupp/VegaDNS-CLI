@@ -11,11 +11,12 @@ class AccessTokenStoreFile(AccessTokenStoreAbstract):
         key,
         secret,
         host,
+        version=1.0,
         directory="~/",
         prefix=".vegadns-access-token-"
     ):
         super(AccessTokenStoreFile, self).__init__(
-            key, secret, host
+            key, secret, host, version
         )
         hash = md5.new(key + secret + host).hexdigest()
         self.token_file = os.path.expanduser(directory + prefix + hash)
