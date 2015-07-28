@@ -14,7 +14,7 @@ from vegadns_client.apikeys import ApiKeys, ApiKey
 
 
 class client(object):
-    def __init__(self, key, secret, host, store=None):
+    def __init__(self, key, secret, host, store=None, version=1.0):
         self._key = key
         self._secret = secret
         self._host = host
@@ -22,7 +22,7 @@ class client(object):
             store = AccessTokenStoreFile(key, secret, host)
         self._store = store
         self._access_token = store.get_access_token()
-        self._api_client = ApiClient(host, self._access_token)
+        self._api_client = ApiClient(host, self._access_token, version)
 
         # resources
         self.accounts = Accounts(self._api_client)
@@ -46,8 +46,8 @@ class client(object):
 
 
 class ApiClient(object):
-    def __init__(self, host, access_token=None):
-        self.host = host
+    def __init__(self, host, access_token=None, version=1.0):
+        self.host = host.rtrim("/") + "/" + str(version)
         self.access_token = access_token
 
     def get(self, path, params=None):
