@@ -1,10 +1,10 @@
 # VegaDNS CLI
 
-VegaDNS CLI is a command line interface for the [VegaDNS 2 API](https://github.com/shupp/VegaDNS/tree/python-api) written in python.  It is comprised of a thin REST wrapper with [OAuth2 section 4.4](https://tools.ietf.org/html/rfc6749#section-4.4) support, vegadns_client, and a [Click](http://click.pocoo.org/5/) based cli wrapper vegadns_cli.
+VegaDNS CLI is a command line interface for the [VegaDNS 2 API](https://github.com/shupp/VegaDNS/tree/python-api) written in python.  It is comprised of a thin REST wrapper with [OAuth2 section 4.4](https://tools.ietf.org/html/rfc6749#section-4.4) support, vegadns_client, and a [Click](http://click.pocoo.org/5/) based cli wrapper, vegadns_cli.  If you wish, you can write your own integration with the API using the vegadns_client wrapper.  See the [integration tests](https://github.com/shupp/VegaDNS/blob/vegadns-cli/integration_tests/test_domain.py) for example usage.
 
 ## Installation and upgrades
 
-Installation should through [pip](https://pip.pypa.io/en/stable/).  For a first time global installation, you can do the following:
+Installation should be done through [pip](https://pip.pypa.io/en/stable/).  For a first time global installation, you can do the following:
 
 ```
 sudo pip install https://github.com/shupp/VegaDNS/archive/vegadns-cli.zip
@@ -30,7 +30,7 @@ vdns config set --host <your_api_url> \
 ```
 
 ### From email/password
-If you need to first create api keys from a given email/password, you can currently use curl and basic auth to generate the keys:
+If someone created an account for you, and you need to create api keys from a given email/password, you can currently use curl and basic auth to generate the keys:
 
 ```
 curl -X POST -u <email>:<password> <api_host>/1.0/apikeys
@@ -39,7 +39,7 @@ In the response JSON response you'll see a _key_ and _secret_.  Use those values
 
 ## Using the _vdns_ cli tool
 
-The vdns tool should be pretty self explanatory.  Too see the list of commands available, you can call it without any arguments:
+The vdns tool should be self explanatory.  To see the list of commands available, you can call it without any arguments:
 
 ```
 $ vdns
