@@ -127,7 +127,7 @@ Commands:
   set_password  Set the password for an account
 ```
 
-While some argumens can be omitted resulting in a prompt for their values, you'll likely find the most success by knowing the arguments you need, and being explicit.
+While some arguments can be omitted resulting in a prompt for their values, you'll likely find the most success by knowing the arguments you need, and being explicit.
 
 ## Support
 For support or feedback, please use [GitHub issues](https://github.com/shupp/VegaDNS/issues)
