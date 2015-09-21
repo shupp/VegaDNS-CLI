@@ -1,13 +1,13 @@
 # VegaDNS CLI
 
-VegaDNS CLI is a command line interface for the [VegaDNS 2 API](https://github.com/shupp/VegaDNS/tree/python-api) written in python.  It is comprised of a thin REST wrapper with [OAuth2 section 4.4](https://tools.ietf.org/html/rfc6749#section-4.4) support, vegadns_client, and a [Click](http://click.pocoo.org/5/) based cli wrapper, vegadns_cli.  If you wish, you can write your own integration with the API using the vegadns_client wrapper.  See the [integration tests](https://github.com/shupp/VegaDNS/blob/vegadns-cli/integration_tests/test_domain.py) for example usage.
+VegaDNS CLI is a command line interface for [VegaDNS-API](https://github.com/shupp/VegaDNS-API) written in python.  It is comprised of a thin REST wrapper with [OAuth2 section 4.4](https://tools.ietf.org/html/rfc6749#section-4.4) support, vegadns_client, and a [Click](http://click.pocoo.org/5/) based cli wrapper, vegadns_cli.  If you wish, you can write your own integration with the API using the vegadns_client wrapper.  See the [integration tests](https://github.com/shupp/VegaDNS/blob/vegadns-cli/integration_tests/test_domain.py) for example usage.
 
 ## Installation and upgrades
 
 Installation should be done through [pip](https://pip.pypa.io/en/stable/).  For a first time global installation, you can do the following:
 
 ```
-sudo pip install https://github.com/shupp/VegaDNS/archive/vegadns-cli.zip
+sudo pip install https://github.com/shupp/VegaDNS-CLI/archive/master.zip
 ```
 
 For subsequent updates, you can use the builtin _upgrade_ command:
@@ -130,4 +130,4 @@ Commands:
 While some arguments can be omitted resulting in a prompt for their values, you'll likely find the most success by knowing the arguments you need, and being explicit.
 
 ## Support
-For support or feedback, please use [GitHub issues](https://github.com/shupp/VegaDNS/issues)
+For support or feedback, please use [GitHub issues](https://github.com/shupp/VegaDNS-CLI/issues)
