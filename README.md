@@ -1,6 +1,6 @@
 # VegaDNS CLI
 
-VegaDNS CLI is a command line interface for [VegaDNS-API](https://github.com/shupp/VegaDNS-API) written in python.  It is comprised of a thin REST wrapper with [OAuth2 section 4.4](https://tools.ietf.org/html/rfc6749#section-4.4) support, vegadns_client, and a [Click](http://click.pocoo.org/5/) based cli wrapper, vegadns_cli.  If you wish, you can write your own integration with the API using the vegadns_client wrapper.  See the [integration tests](https://github.com/shupp/VegaDNS/blob/vegadns-cli/integration_tests/test_domain.py) for example usage.
+VegaDNS CLI is a command line interface for [VegaDNS-API](https://github.com/shupp/VegaDNS-API) written in python.  It is comprised of a thin REST wrapper with [OAuth2 section 4.4](https://tools.ietf.org/html/rfc6749#section-4.4) support, vegadns_client, and a [Click](http://click.pocoo.org/5/) based cli wrapper, vegadns_cli.  If you wish, you can write your own integration with the API using the vegadns_client wrapper.  See the [integration tests](https://github.com/shupp/VegaDNS-CLI/blob/master/integration_tests/test_domain.py) for example usage.
 
 ## Installation and upgrades
 
