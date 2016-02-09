@@ -3,9 +3,13 @@ from vegadns_client.exceptions import ClientException
 
 
 class Accounts(AbstractResourceCollection):
-    def __call__(self, filter=None):
+    def __call__(self, search, filter=None):
         # filter will be supported later
-        r = self.client.get("/accounts")
+        query_params = {}
+        if search:
+            query_params["search"] = search
+
+        r = self.client.get("/accounts", params=query_params)
         if r.status_code != 200:
             raise ClientException(r.status_code, r.content)
 

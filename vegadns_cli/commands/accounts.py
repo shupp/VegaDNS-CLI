@@ -207,11 +207,16 @@ def get(ctx, account_id):
 
 
 @accounts.command()
+@click.option(
+    "--search",
+    default=False,
+    help="Optionally search accounts"
+)
 @click.pass_context
-def list(ctx):
+def list(ctx, search):
     """List all accounts"""
     try:
-        collection = ctx.obj['client'].accounts()
+        collection = ctx.obj['client'].accounts(search)
         accounts = []
         for account in collection:
             accounts.append(account.values)
