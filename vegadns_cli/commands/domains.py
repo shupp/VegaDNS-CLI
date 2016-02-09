@@ -9,20 +9,23 @@ from vegadns_cli.common import domains
 logger = logging.getLogger(__name__)
 
 
-def get_all_domains(ctx):
-    collection = ctx.obj['client'].domains()
-    domains = []
-    for domain in collection:
-        domains.append(domain.values)
-    return domains
-
-
 @domains.command()
+@click.option(
+    "--search",
+    default=False,
+    help="Optionally search domain names"
+)
+@click.option(
+    "--include-permissions",
+    is_flag=True,
+    default=False,
+    help="Includes your permissions on each domain"
+)
 @click.pass_context
-def list(ctx):
+def list(ctx, include_permissions, search):
     """List domains"""
     try:
-        collection = ctx.obj['client'].domains()
+        collection = ctx.obj['client'].domains(search, include_permissions)
         domains = []
         for domain in collection:
             domains.append(domain.values)
@@ -44,8 +47,14 @@ def list(ctx):
     type=int,
     help="ID of the domain, takes precedence"
 )
+@click.option(
+    "--include-permissions",
+    is_flag=True,
+    default=False,
+    help="Includes your permissions on each domain"
+)
 @click.pass_context
-def get(ctx, domain_id=None, domain=None):
+def get(ctx, include_permissions, domain_id=None, domain=None):
     """Get a single domain"""
     try:
         if domain_id is not None:
@@ -56,9 +65,13 @@ def get(ctx, domain_id=None, domain=None):
         if domain is None:
             domain = click.prompt('Please enter the domain name')
 
-        domains = get_all_domains(ctx)
+        collection = ctx.obj['client'].domains(domain, include_permissions)
+        domains = []
+        for dom in collection:
+            domains.append(dom.values)
+
         for d in domains:
-            if d["domain"] == domain:
+            if d["domain"] == domain.lower():
                 click.echo(json.dumps(d, indent=4))
                 ctx.exit(0)
 
