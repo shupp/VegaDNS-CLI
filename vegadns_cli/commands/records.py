@@ -11,16 +11,28 @@ logger = logging.getLogger(__name__)
 
 @records.command()
 @click.option(
+    "--search-value",
+    default=False,
+    help="Optionally search by record values"
+)
+@click.option(
+    "--search-name",
+    default=False,
+    help="Optionally search by record names"
+)
+@click.option(
     "--domain-id",
     type=int,
     prompt=True,
     help="ID of the domain to list records for, required"
 )
 @click.pass_context
-def list(ctx, domain_id):
+def list(ctx, domain_id, search_name, search_value):
     """List all records for a domain"""
     try:
-        collection = ctx.obj['client'].records(domain_id)
+        collection = ctx.obj['client'].records(
+            domain_id, search_name, search_value
+        )
         records = []
         for record in collection:
             records.append(record.values)
