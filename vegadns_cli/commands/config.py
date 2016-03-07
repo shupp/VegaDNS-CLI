@@ -8,6 +8,25 @@ from vegadns_cli.common import cli, config, configfile
 
 @config.command()
 @click.pass_context
+def list(ctx):
+    """List the config sections that can be used as environments"""
+    environments = ctx.obj['config'].sections()
+    environments.insert(0, 'default')
+
+    for e in environments:
+        key = ctx.obj['config'].get(e, 'key')
+        secret = ctx.obj['config'].get(e, 'secret')
+        host = ctx.obj['config'].get(e, 'host')
+
+        click.echo("[" + e + "]")
+        click.echo("key=" + key)
+        click.echo("secret=" + secret)
+        click.echo("host=" + host)
+        click.echo("")
+
+
+@config.command()
+@click.pass_context
 def get(ctx):
     """Get the current config values"""
     environment = ctx.obj['environment']
