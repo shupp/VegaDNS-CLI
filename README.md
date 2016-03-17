@@ -42,7 +42,6 @@ In the response JSON response you'll see a _key_ and _secret_.  Use those values
 The vdns tool should be self explanatory.  To see the list of commands available, you can call it without any arguments:
 
 ```
-$ vdns
 Usage: vdns [OPTIONS] COMMAND [ARGS]...
 
   A command line interface for managing VegaDNS
@@ -56,6 +55,7 @@ Options:
 Commands:
   accounts         Manage accounts
   apikeys          Manage account api keys
+  audit_logs       List audit logs
   config           Manage the config for the current environment
   default_records  Manage default records
   domaingroupmaps  Manage domain to group mappings/permissions
@@ -66,7 +66,7 @@ Commands:
   records          Manage a domain's records
   update_data      Update tinydns data (local to VegaDNS only)
   upgrade          Upgrade VegaDNS CLI client
-  ```
+```
 As you can see, if you work with multiple VegaDNS2 installations, you can use _-e <environment>_ as a global argument to all commands specify which api to talk to.  The default is _default_.
 
 Note that you can always use _--help_ with any command to see its usage:
