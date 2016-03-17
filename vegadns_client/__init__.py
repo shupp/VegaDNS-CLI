@@ -11,6 +11,7 @@ from vegadns_client.domaingroupmaps import DomainGroupMaps, DomainGroupMap
 from vegadns_client.accounts import Accounts, Account
 from vegadns_client.updatedata import UpdateData
 from vegadns_client.apikeys import ApiKeys, ApiKey
+from vegadns_client.audit_logs import AuditLogs
 
 
 class client(object):
@@ -43,6 +44,7 @@ class client(object):
         self.updatedata = UpdateData(self._api_client)
         self.apikey = ApiKey(self._api_client)
         self.apikeys = ApiKeys(self._api_client)
+        self.audit_logs = AuditLogs(self._api_client)
 
 
 class ApiClient(object):

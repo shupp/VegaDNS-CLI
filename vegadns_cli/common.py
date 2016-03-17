@@ -144,3 +144,12 @@ def apikeys(ctx):
     pass
 
 cli.add_command(apikeys)
+
+
+@click.group()
+@click.pass_context
+def audit_logs(ctx):
+    """List audit logs"""
+    pass
+
+cli.add_command(audit_logs)
