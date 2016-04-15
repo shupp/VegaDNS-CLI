@@ -46,6 +46,12 @@ class client(object):
         self.apikeys = ApiKeys(self._api_client)
         self.audit_logs = AuditLogs(self._api_client)
 
+    def get_access_token(self):
+        return self._access_token
+
+    def get_access_token_expires_at(self):
+        return self._store.get_expires_at()
+
 
 class ApiClient(object):
     def __init__(self, host, access_token=None, version=1.0):

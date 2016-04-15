@@ -14,6 +14,9 @@ class AccessTokenStoreAbstract(object):
     def get(self):
         raise NotImplemented()
 
+    def get_expires_at(self):
+        raise NotImplemented()
+
     def save(self, access_token, expires_in):
         raise NotImplemented()
 

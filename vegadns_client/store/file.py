@@ -31,6 +31,16 @@ class AccessTokenStoreFile(AccessTokenStoreAbstract):
                 return None
             return data['access_token']
 
+    def get_expires_at(self):
+        if not os.path.exists(self.token_file):
+            return None
+
+        with open(self.token_file) as token_file:
+            data = json.load(token_file)
+            if data.get('expires_at', 0) < self.now:
+                return None
+            return data['expires_at']
+
     def save(self, access_token, expires_in):
         newdata = {
             'access_token': access_token,

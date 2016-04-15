@@ -19,6 +19,7 @@ import vegadns_cli.commands.updatedata
 import vegadns_cli.commands.apikeys
 import vegadns_cli.commands.upgrade
 import vegadns_cli.commands.audit_logs
+import vegadns_cli.commands.get_token
 
 
 if __name__ == "__main__":
