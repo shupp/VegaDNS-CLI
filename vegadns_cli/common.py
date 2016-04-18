@@ -153,12 +153,3 @@ def audit_logs(ctx):
     pass
 
 cli.add_command(audit_logs)
-
-
-@click.group()
-@click.pass_context
-def tokens(ctx):
-    """Access to oauth token"""
-    pass
-
-cli.add_command(tokens)
