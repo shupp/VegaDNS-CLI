@@ -19,6 +19,8 @@ import vegadns_cli.commands.updatedata
 import vegadns_cli.commands.apikeys
 import vegadns_cli.commands.upgrade
 import vegadns_cli.commands.audit_logs
+import vegadns_cli.commands.locations
+import vegadns_cli.commands.location_prefixes
 import vegadns_cli.commands.get_token
 
 

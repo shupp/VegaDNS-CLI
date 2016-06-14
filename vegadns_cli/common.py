@@ -148,6 +148,24 @@ cli.add_command(apikeys)
 
 @click.group()
 @click.pass_context
+def locations(ctx):
+    """Manage locations"""
+    pass
+
+cli.add_command(locations)
+
+
+@click.group()
+@click.pass_context
+def location_prefixes(ctx):
+    """Manage location network prefixes"""
+    pass
+
+cli.add_command(location_prefixes)
+
+
+@click.group()
+@click.pass_context
 def audit_logs(ctx):
     """List audit logs"""
     pass

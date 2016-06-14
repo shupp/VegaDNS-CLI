@@ -11,6 +11,8 @@ from vegadns_client.domaingroupmaps import DomainGroupMaps, DomainGroupMap
 from vegadns_client.accounts import Accounts, Account
 from vegadns_client.updatedata import UpdateData
 from vegadns_client.apikeys import ApiKeys, ApiKey
+from vegadns_client.locations import Locations, Location
+from vegadns_client.location_prefixes import LocationPrefixes, LocationPrefix
 from vegadns_client.audit_logs import AuditLogs
 
 
@@ -44,6 +46,10 @@ class client(object):
         self.updatedata = UpdateData(self._api_client)
         self.apikey = ApiKey(self._api_client)
         self.apikeys = ApiKeys(self._api_client)
+        self.location = Location(self._api_client)
+        self.locations = Locations(self._api_client)
+        self.location_prefix = LocationPrefix(self._api_client)
+        self.location_prefixes = LocationPrefixes(self._api_client)
         self.audit_logs = AuditLogs(self._api_client)
 
     def get_access_token(self):
