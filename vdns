@@ -22,6 +22,7 @@ import vegadns_cli.commands.audit_logs
 import vegadns_cli.commands.locations
 import vegadns_cli.commands.location_prefixes
 import vegadns_cli.commands.get_token
+import vegadns_cli.commands.version
 
 
 if __name__ == "__main__":

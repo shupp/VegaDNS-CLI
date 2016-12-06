@@ -14,6 +14,7 @@ from vegadns_client.apikeys import ApiKeys, ApiKey
 from vegadns_client.locations import Locations, Location
 from vegadns_client.location_prefixes import LocationPrefixes, LocationPrefix
 from vegadns_client.audit_logs import AuditLogs
+from vegadns_client.release_version import ReleaseVersion
 
 
 class client(object):
@@ -51,6 +52,7 @@ class client(object):
         self.location_prefix = LocationPrefix(self._api_client)
         self.location_prefixes = LocationPrefixes(self._api_client)
         self.audit_logs = AuditLogs(self._api_client)
+        self.release_version = ReleaseVersion(self._api_client)
 
     def get_access_token(self):
         return self._access_token
