@@ -1,6 +1,8 @@
 import click
 import json
 import logging
+import os
+import stat
 
 from vegadns_client.exceptions import ClientException
 from vegadns_cli.common import cli, config, configfile
@@ -65,8 +67,18 @@ def set(ctx, key, secret, host):
     c.set(ctx.obj['environment'], 'key', key)
     c.set(ctx.obj['environment'], 'secret', secret)
     c.set(ctx.obj['environment'], 'host', host)
-    f = open(configfile, 'w')
-    c.write(f)
+    """Check existing file permissions"""
+    if os.path.exists(configfile):
+        s = os.stat(configfile)
+        if bool(s.st_mode & stat.S_IROTH):
+            """Need to update permissions"""
+            os.chmod(configfile, 0600)
+
+    with os.fdopen(
+        os.open(configfile, os.O_WRONLY | os.O_CREAT, 0600),
+        'w'
+    ) as f:
+        c.write(f)
 
     click.echo("[" + environment + "]")
     click.echo("key = " + key)
