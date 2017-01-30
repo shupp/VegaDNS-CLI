@@ -15,7 +15,7 @@ def version(ctx):
     try:
         api_version = ctx.obj['client'].release_version()
         click.echo("api version: " + api_version)
-        click.echo("cli version: 2.0.0")
+        click.echo("cli version: 2.0.1")
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
