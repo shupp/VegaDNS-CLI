@@ -3,7 +3,7 @@ from vegadns_client.exceptions import ClientException
 
 
 class AuditLogs(AbstractResourceCollection):
-    def __call__(self, domain_ids=None, sort=None, order=None):
+    def __call__(self, domain_ids=None, sort=None, order=None, search=None):
         params = {}
         if domain_ids is not None:
             params["domain_ids"] = domain_ids
@@ -11,6 +11,8 @@ class AuditLogs(AbstractResourceCollection):
             params["sort"] = sort
         if order is not None:
             params["order"] = order
+        if search is not None:
+            params["search"] = search
 
         r = self.client.get(
             "/audit_logs",

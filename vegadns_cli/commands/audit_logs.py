@@ -21,6 +21,12 @@ logger = logging.getLogger(__name__)
     help="Optionally sort results by domain_id, log_id, or time"
 )
 @click.option(
+    "--search",
+    type=unicode,
+    prompt=False,
+    help=("Optional search string for log entry")
+)
+@click.option(
     "--domain-ids",
     type=unicode,
     prompt=False,
@@ -28,11 +34,11 @@ logger = logging.getLogger(__name__)
           "defaults to all domains.")
 )
 @click.pass_context
-def list(ctx, domain_ids=None, sort=None, order=None):
+def list(ctx, domain_ids=None, search=None, sort=None, order=None):
     """List audit logs"""
     try:
         collection = ctx.obj['client'].audit_logs(
-            domain_ids=domain_ids, sort=sort, order=order
+            domain_ids=domain_ids, sort=sort, order=order, search=search
         )
 
         audit_logs = []
