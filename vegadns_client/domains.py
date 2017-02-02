@@ -1,4 +1,5 @@
 from vegadns_client.common import AbstractResource, AbstractResourceCollection
+from vegadns_client.records import Record
 from vegadns_client.exceptions import ClientException
 
 
@@ -80,3 +81,15 @@ class Domain(AbstractResource):
         self.values = decoded["domain"]
 
         return self
+
+    def create_default_soa(self, domain_id):
+        r = self.client.post(
+            "/domains/" + domain_id + "/create_default_soa"
+        )
+        if r.status_code != 201:
+            raise ClientException(r.status_code, r.content)
+        decoded = r.json()
+        m = Record(self.client)
+        m.values = decoded["record"]
+
+        return m

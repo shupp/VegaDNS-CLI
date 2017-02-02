@@ -136,6 +136,25 @@ def create(ctx, domain):
 @domains.command()
 @click.option(
     "--domain-id",
+    type=unicode,
+    prompt=True,
+    help="Domain id, required"
+)
+@click.pass_context
+def create_default_soa(ctx, domain_id):
+    """Creates an SOA record using the default SOA record"""
+    try:
+        d = ctx.obj['client'].domain.create_default_soa(domain_id)
+        click.echo(json.dumps(d.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@domains.command()
+@click.option(
+    "--domain-id",
     type=int,
     prompt=True,
     help="ID of the domain, required"
