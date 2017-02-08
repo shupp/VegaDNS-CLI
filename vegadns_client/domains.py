@@ -25,11 +25,17 @@ class Domains(AbstractResourceCollection):
 
         return domains
 
-    def create(self, domain):
-        r = self.client.post(
-            "/domains",
-            data={'domain': domain}
-        )
+    def create(self, domain, skipSoa=False, skipDefaultRecords=False,
+               moveCollidingRecords=False):
+        data = {'domain': domain}
+        if skipSoa is not False:
+            data['skip_soa'] = 1
+        if skipDefaultRecords is not False:
+            data['skip_default_records'] = 1
+        if moveCollidingRecords is not False:
+            data['move_colliding_records'] = 1
+
+        r = self.client.post("/domains", data=data)
         if r.status_code != 201:
             raise ClientException(r.status_code, r.content)
         decoded = r.json()

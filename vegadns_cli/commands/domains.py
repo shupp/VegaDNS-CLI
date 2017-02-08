@@ -116,16 +116,38 @@ def edit(ctx, domain_id, owner_id, status):
 
 @domains.command()
 @click.option(
+    "--move-colliding-records",
+    is_flag=True,
+    default=False,
+    help=("Move any records whose label collides with this domain into "
+          "the new domain")
+)
+@click.option(
+    "--skip-default-records",
+    is_flag=True,
+    default=False,
+    help="Skip creation of default records"
+)
+@click.option(
+    "--skip-soa",
+    is_flag=True,
+    default=False,
+    help="Skip just the default SOA record creation"
+)
+@click.option(
     "--domain",
     type=unicode,
     prompt=True,
     help="Domain name, required and must be unique"
 )
 @click.pass_context
-def create(ctx, domain):
+def create(ctx, domain, skip_soa=False, skip_default_records=False,
+           move_colliding_records=False):
     """Create a new domain"""
     try:
-        d = ctx.obj['client'].domains.create(domain)
+        d = ctx.obj['client'].domains.create(
+            domain, skip_soa, skip_default_records, move_colliding_records
+        )
         click.echo(json.dumps(d.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
