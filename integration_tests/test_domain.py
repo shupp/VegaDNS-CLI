@@ -1,6 +1,7 @@
 import unittest
 import os
 import dns.reversename
+import time
 
 import vegadns_client
 from integration_tests.dns_client import DNS
@@ -187,8 +188,8 @@ class TestDomain(unittest.TestCase):
         self.assertEquals("example.com", txt.values["name"])
         self.assertEquals("v=spf1 mx a ptr", txt.values["value"])
 
-        # force tinydns update
-        self.client.updatedata()
+        # wait for tinydns update
+        time.sleep(1)
 
         # check DNS
         dnsclient = DNS()
@@ -358,8 +359,8 @@ class TestDomain(unittest.TestCase):
         self.assertEquals("example.com", txt_new.values["name"])
         self.assertEquals("v=spf1 mx ptr", txt_new.values["value"])
 
-        # force tinydns update for edits
-        self.client.updatedata()
+        # wait for tinydns update
+        time.sleep(1)
 
         # A edit check
         response = dnsclient.exec_query("www.example.com", "a", self.ns_server)
