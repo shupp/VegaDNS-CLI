@@ -1220,6 +1220,121 @@ def create_mx(ctx, domain_id, name, value, distance=0, ttl=3600):
 
 @records.command()
 @click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--flag",
+    type=int,
+    prompt=False,
+    help="CAA Flag, defaults to 0"
+)
+@click.option(
+    "--tag",
+    type=click.Choice(['issue', 'issuewild', 'iodef']),
+    prompt=True,
+    help="Type of CAA tag: issue, issuewild, iodef"
+)
+@click.option(
+    "--tag-value",
+    type=unicode,
+    prompt=True,
+    help="Value of the CAA tag"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--record-id",
+    type=int,
+    prompt=True,
+    help="ID of the record, required"
+)
+@click.pass_context
+def edit_caa(ctx, record_id, name, tag, tag_value, flag=0, ttl=3600):
+    """Edit a CAA record"""
+    try:
+        data = {
+            "name": name,
+            "tag": tag,
+            "tagval": tag_value,
+            "flag": flag,
+            "ttl": ttl
+        }
+        r = ctx.obj['client'].record(record_id)
+        record = r.edit(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@records.command()
+@click.option(
+    "--ttl",
+    type=int,
+    prompt=False,
+    help="TTL of the record, defaults to 3600"
+)
+@click.option(
+    "--flag",
+    type=int,
+    prompt=False,
+    help="CAA Flag, defaults to 0"
+)
+@click.option(
+    "--tag",
+    type=click.Choice(['issue', 'issuewild', 'iodef']),
+    prompt=True,
+    help="Type of CAA tag: issue, issuewild, iodef"
+)
+@click.option(
+    "--tag-value",
+    type=unicode,
+    prompt=True,
+    help="Value of the CAA tag"
+)
+@click.option(
+    "--name",
+    type=unicode,
+    prompt=True,
+    help="Hostname of the record, required"
+)
+@click.option(
+    "--domain-id",
+    type=int,
+    prompt=True,
+    help="ID of the domain to list records for, required"
+)
+@click.pass_context
+def create_caa(ctx, domain_id, name, tag, tag_value, flag=0, ttl=3600):
+    """Create a CAA record"""
+    try:
+        data = {
+            "record_type": "CAA",
+            "domain_id": domain_id,
+            "name": name,
+            "tag": tag,
+            "tagval": tag_value,
+            "flag": flag,
+            "ttl": ttl
+        }
+        record = ctx.obj['client'].records.create(data)
+        click.echo(json.dumps(record.values, indent=4))
+    except ClientException as e:
+        click.echo("Error: " + str(e.code))
+        click.echo("Response: " + e.message)
+        ctx.exit(1)
+
+
+@records.command()
+@click.option(
     "--record-id",
     type=int,
     prompt=True,
