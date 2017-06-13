@@ -188,6 +188,50 @@ class TestDomain(unittest.TestCase):
         self.assertEquals("example.com", txt.values["name"])
         self.assertEquals("v=spf1 mx a ptr", txt.values["value"])
 
+        # CAA issue
+        caa = self.client.records.create({
+            "record_type": "CAA",
+            "domain_id": self.domain.values["domain_id"],
+            "name": "example.com",
+            "flag": 0,
+            "tagval": "digicert.com",
+            "tag": "issue"
+        })
+        self.assertEquals("example.com", caa.values["name"])
+        self.assertEquals("0", caa.values["flag"])
+        self.assertEquals("digicert.com", caa.values["tagval"])
+        self.assertEquals("issue", caa.values["tag"])
+
+        # CAA issuewild
+        caa_wild = self.client.records.create({
+            "record_type": "CAA",
+            "domain_id": self.domain.values["domain_id"],
+            "name": "example.com",
+            "flag": 0,
+            "tagval": ";",
+            "tag": "issuewild"
+        })
+        self.assertEquals("example.com", caa_wild.values["name"])
+        self.assertEquals("0", caa_wild.values["flag"])
+        self.assertEquals(";", caa_wild.values["tagval"])
+        self.assertEquals("issuewild", caa_wild.values["tag"])
+        caa_wild.delete()
+
+        # CAA iodef
+        caa_iodef = self.client.records.create({
+            "record_type": "CAA",
+            "domain_id": self.domain.values["domain_id"],
+            "name": "example.com",
+            "flag": 0,
+            "tagval": "mailto:test@example.com",
+            "tag": "iodef"
+        })
+        self.assertEquals("example.com", caa_iodef.values["name"])
+        self.assertEquals("0", caa_iodef.values["flag"])
+        self.assertEquals("mailto:test@example.com", caa_iodef.values["tagval"])
+        self.assertEquals("iodef", caa_iodef.values["tag"])
+        caa_iodef.delete()
+
         # wait for tinydns update
         time.sleep(1)
 
@@ -245,6 +289,15 @@ class TestDomain(unittest.TestCase):
         # TXT check
         response = dnsclient.exec_query("example.com", "txt", self.ns_server)
         self.assertEquals('"v=spf1 mx a ptr"', str(response[0]))
+
+        # CAA check
+        response = dnsclient.exec_query("example.com", "type257", self.ns_server)
+        # dnspython doesn't support CAA yet so use the hex output
+        # 00 flag
+        # 05 length
+        # 6973737565 = issue
+        # 64696769636572742e636f6d = digicert.com
+        self.assertEquals("\\# 19 0005697373756564696769636572742e 636f6d", str(response[0]))
 
         # Make changes to records
 
@@ -359,6 +412,14 @@ class TestDomain(unittest.TestCase):
         self.assertEquals("example.com", txt_new.values["name"])
         self.assertEquals("v=spf1 mx ptr", txt_new.values["value"])
 
+        caa_e = self.client.record(caa.values["record_id"])
+        caa_new = caa_e.edit({
+            "name": "example.com",
+            "flag": 0,
+            "tagval": "letsencrypt.com",
+            "tag": "issue"
+        })
+
         # wait for tinydns update
         time.sleep(1)
 
@@ -415,3 +476,6 @@ class TestDomain(unittest.TestCase):
         # TXT edit check
         response = dnsclient.exec_query("example.com", "txt", self.ns_server)
         self.assertEquals('"v=spf1 mx ptr"', str(response[0]))
+
+        response = dnsclient.exec_query("example.com", "type257", self.ns_server)
+        self.assertEquals('\\# 22 000569737375656c657473656e637279 70742e636f6d', str(response[0]))
