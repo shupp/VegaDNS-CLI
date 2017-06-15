@@ -198,7 +198,7 @@ class TestDomain(unittest.TestCase):
             "tag": "issue"
         })
         self.assertEquals("example.com", caa.values["name"])
-        self.assertEquals("0", caa.values["flag"])
+        self.assertEquals(0, caa.values["flag"])
         self.assertEquals("digicert.com", caa.values["tagval"])
         self.assertEquals("issue", caa.values["tag"])
 
