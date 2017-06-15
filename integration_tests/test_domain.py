@@ -212,7 +212,7 @@ class TestDomain(unittest.TestCase):
             "tag": "issuewild"
         })
         self.assertEquals("example.com", caa_wild.values["name"])
-        self.assertEquals("0", caa_wild.values["flag"])
+        self.assertEquals(0, caa_wild.values["flag"])
         self.assertEquals(";", caa_wild.values["tagval"])
         self.assertEquals("issuewild", caa_wild.values["tag"])
         caa_wild.delete()
