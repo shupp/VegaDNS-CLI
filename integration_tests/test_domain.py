@@ -227,7 +227,7 @@ class TestDomain(unittest.TestCase):
             "tag": "iodef"
         })
         self.assertEquals("example.com", caa_iodef.values["name"])
-        self.assertEquals("0", caa_iodef.values["flag"])
+        self.assertEquals(0, caa_iodef.values["flag"])
         self.assertEquals("mailto:test@example.com", caa_iodef.values["tagval"])
         self.assertEquals("iodef", caa_iodef.values["tag"])
         caa_iodef.delete()
