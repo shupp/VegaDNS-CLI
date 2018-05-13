@@ -228,7 +228,10 @@ class TestDomain(unittest.TestCase):
         })
         self.assertEquals("example.com", caa_iodef.values["name"])
         self.assertEquals(0, caa_iodef.values["flag"])
-        self.assertEquals("mailto:test@example.com", caa_iodef.values["tagval"])
+        self.assertEquals(
+            "mailto:test@example.com",
+            caa_iodef.values["tagval"]
+        )
         self.assertEquals("iodef", caa_iodef.values["tag"])
         caa_iodef.delete()
 
@@ -291,13 +294,17 @@ class TestDomain(unittest.TestCase):
         self.assertEquals('"v=spf1 mx a ptr"', str(response[0]))
 
         # CAA check
-        response = dnsclient.exec_query("example.com", "type257", self.ns_server)
+        response = dnsclient.exec_query(
+            "example.com", "type257", self.ns_server
+        )
         # dnspython doesn't support CAA yet so use the hex output
         # 00 flag
         # 05 length
         # 6973737565 = issue
         # 64696769636572742e636f6d = digicert.com
-        self.assertEquals("\\# 19 0005697373756564696769636572742e 636f6d", str(response[0]))
+        self.assertEquals(
+            "\\# 19 0005697373756564696769636572742e 636f6d", str(response[0])
+        )
 
         # Make changes to records
 
@@ -477,5 +484,10 @@ class TestDomain(unittest.TestCase):
         response = dnsclient.exec_query("example.com", "txt", self.ns_server)
         self.assertEquals('"v=spf1 mx ptr"', str(response[0]))
 
-        response = dnsclient.exec_query("example.com", "type257", self.ns_server)
-        self.assertEquals('\\# 22 000569737375656c657473656e637279 70742e636f6d', str(response[0]))
+        response = dnsclient.exec_query(
+            "example.com", "type257", self.ns_server
+        )
+        self.assertEquals(
+            '\\# 22 000569737375656c657473656e637279 70742e636f6d',
+            str(response[0])
+        )
