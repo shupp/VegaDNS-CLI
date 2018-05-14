@@ -4,8 +4,8 @@ ENV VEGADNS_CLI master
 
 ADD . /opt/vegadns-cli
 
-RUN apk --update add python py-pip curl bash
-RUN pip install -r /opt/vegadns-cli/requirements.txt
+RUN apk --update add python py-pip curl bash \
+    && pip install -r /opt/vegadns-cli/requirements.txt
 
 WORKDIR /opt/vegadns-cli
 
