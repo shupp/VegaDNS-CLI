@@ -2,6 +2,9 @@
 
 default: check
 
+build-image:
+	docker build --no-cache -t vegadns/cli .
+
 # Only check code we've written
 check:
 	pep8 vdns vegadns_cli vegadns_client integration_tests
