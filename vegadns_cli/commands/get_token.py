@@ -1,3 +1,4 @@
+from __future__ import print_function
 import click
 import json
 import logging
@@ -46,5 +47,5 @@ def get_token(ctx, json):
                 str(minutes) + " minutes and " + str(seconds) + " seconds"
             )
 
-        print "Token:      " + token
-        print "Expires in: " + str(expires_at)
+        print("Token:      " + token)
+        print("Expires in: " + str(expires_at))

@@ -72,10 +72,10 @@ def set(ctx, key, secret, host):
         s = os.stat(configfile)
         if bool(s.st_mode & stat.S_IROTH):
             """Need to update permissions"""
-            os.chmod(configfile, 0600)
+            os.chmod(configfile, 0o600)
 
     with os.fdopen(
-        os.open(configfile, os.O_WRONLY | os.O_CREAT, 0600),
+        os.open(configfile, os.O_WRONLY | os.O_CREAT, 0o600),
         'w'
     ) as f:
         c.write(f)

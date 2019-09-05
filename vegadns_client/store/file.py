@@ -48,7 +48,7 @@ class AccessTokenStoreFile(AccessTokenStoreAbstract):
         }
 
         with os.fdopen(
-            os.open(self.token_file, os.O_WRONLY | os.O_CREAT, 0600),
+            os.open(self.token_file, os.O_WRONLY | os.O_CREAT, 0o600),
             'w'
         ) as token_file:
 
