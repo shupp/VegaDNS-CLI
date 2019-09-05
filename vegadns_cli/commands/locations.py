@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -31,12 +32,12 @@ def delete(ctx, location_id):
 @locations.command()
 @click.option(
     "--location-description",
-    type=unicode,
+    type=str,
     help="Description"
 )
 @click.option(
     "--location",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Two character location name, required"
 )
@@ -66,13 +67,13 @@ def edit(ctx, location_id, location, location_description=None):
 @locations.command()
 @click.option(
     "--location",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Two character location name, required"
 )
 @click.option(
     "--location-description",
-    type=unicode,
+    type=str,
     help="Description, optional"
 )
 @click.pass_context

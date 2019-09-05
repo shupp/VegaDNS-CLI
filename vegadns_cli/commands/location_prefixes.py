@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -31,20 +32,20 @@ def delete(ctx, prefix_id):
 @location_prefixes.command()
 @click.option(
     "--prefix-description",
-    type=unicode,
+    type=str,
     prompt=False,
     help="Preifx description, optional"
 )
 @click.option(
     "--prefix-type",
-    type=unicode,
+    type=str,
     prompt=False,
     default="ipv4",
     help="Prefix type, either 'ipv4' or 'ipv6', defaults to 'ipv4'"
 )
 @click.option(
     "--prefix",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Prefix, e.g. '192.168.1', required"
 )
@@ -75,20 +76,20 @@ def edit(ctx, prefix_id, prefix, prefix_type, prefix_description=None):
 @location_prefixes.command()
 @click.option(
     "--prefix-description",
-    type=unicode,
+    type=str,
     prompt=False,
     help="Preifx description, optional"
 )
 @click.option(
     "--prefix-type",
-    type=unicode,
+    type=str,
     prompt=False,
     default="ipv4",
     help="Prefix type, either 'ipv4' or 'ipv6', required"
 )
 @click.option(
     "--prefix",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Prefix, e.g. '192.168.1', required"
 )
@@ -140,7 +141,7 @@ def get(ctx, prefix_id):
 @location_prefixes.command()
 @click.option(
     "--location-id",
-    type=unicode,
+    type=str,
     prompt=True,
     help=("Location id to list prefixes for, required")
 )

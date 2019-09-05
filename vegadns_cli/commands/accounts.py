@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -31,7 +32,7 @@ def delete(ctx, account_id):
 @accounts.command()
 @click.option(
     "--password",
-    type=unicode,
+    type=str,
     prompt=True,
     hide_input=True,
     help="Clear text password, required"
@@ -67,37 +68,37 @@ def set_password(ctx, account_id, password):
 @accounts.command()
 @click.option(
     "--status",
-    type=unicode,
+    type=str,
     prompt=False,
     help="Account status, defaults to 'active'"
 )
 @click.option(
     "--phone",
-    type=unicode,
+    type=str,
     prompt=False,
     help="Phone number, optional"
 )
 @click.option(
     "--account-type",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Account type, one of 'senior_admin' or 'user', required"
 )
 @click.option(
     "--email",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Email address, required"
 )
 @click.option(
     "--last-name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Last Name, required"
 )
 @click.option(
     "--first-name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="First Name, required"
 )
@@ -132,37 +133,37 @@ def edit(ctx, account_id, first_name, last_name,
 @accounts.command()
 @click.option(
     "--phone",
-    type=unicode,
+    type=str,
     prompt=False,
     help="Phone number, optional"
 )
 @click.option(
     "--password",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Clear text password, required"
 )
 @click.option(
     "--account-type",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Account type, one of 'senior_admin' or 'user', required"
 )
 @click.option(
     "--email",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Email address, required"
 )
 @click.option(
     "--last-name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Last Name, required"
 )
 @click.option(
     "--first-name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="First Name, required"
 )

@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging

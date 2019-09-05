@@ -1,3 +1,5 @@
+from builtins import str
+from builtins import object
 import requests
 
 from vegadns_client.store.file import AccessTokenStoreFile

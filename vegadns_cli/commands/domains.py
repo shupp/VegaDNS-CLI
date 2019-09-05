@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -39,7 +40,7 @@ def list(ctx, include_permissions, search):
 @domains.command()
 @click.option(
     "--domain",
-    type=unicode,
+    type=str,
     help="domain name"
 )
 @click.option(
@@ -87,7 +88,7 @@ def get(ctx, include_permissions, domain_id=None, domain=None):
 @domains.command()
 @click.option(
     "--status",
-    type=unicode,
+    type=str,
     help="Domain status, can be 'active' or 'inactive'"
 )
 @click.option(
@@ -136,7 +137,7 @@ def edit(ctx, domain_id, owner_id, status):
 )
 @click.option(
     "--domain",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Domain name, required and must be unique"
 )
@@ -158,7 +159,7 @@ def create(ctx, domain, skip_soa=False, skip_default_records=False,
 @domains.command()
 @click.option(
     "--domain-id",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Domain id, required"
 )

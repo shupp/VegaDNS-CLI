@@ -1,3 +1,4 @@
+from builtins import str
 from vegadns_client.common import AbstractResource, AbstractResourceCollection
 from vegadns_client.exceptions import ClientException
 

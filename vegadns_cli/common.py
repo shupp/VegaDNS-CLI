@@ -1,6 +1,8 @@
+from future import standard_library
+standard_library.install_aliases()
 import click
-import httplib as http_client
-import ConfigParser
+import http.client as http_client
+import configparser
 import logging
 import os.path
 import requests
@@ -12,11 +14,11 @@ from vegadns_client.store.file import AccessTokenStoreFile
 logger = logging.getLogger(__name__)
 
 # Use 'default' instead of 'DEFAULT'
-ConfigParser.DEFAULTSECT = 'default'
+configparser.DEFAULTSECT = 'default'
 
 # Set config defaults, get config file
 configfile = os.path.expanduser('~/.vegadns-cli-rc')
-config_obj = ConfigParser.SafeConfigParser(
+config_obj = configparser.SafeConfigParser(
     {"key": "", "secret": "", "host": "http://localhost:5000"}
 )
 config_obj.read(configfile)

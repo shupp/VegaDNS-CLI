@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -52,13 +53,13 @@ def list(ctx, domain_id, search_name, search_value):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv4 address of the record to edit, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to edit, required"
 )
@@ -96,13 +97,13 @@ def edit_aptr(ctx, record_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv4 address of the record to edit, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to edit, required"
 )
@@ -140,13 +141,13 @@ def edit_a(ctx, record_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv4 address of the record to create, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -184,13 +185,13 @@ def create_aptr(ctx, domain_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv4 address of the record to create, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -228,13 +229,13 @@ def create_a(ctx, domain_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv6 address, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -271,13 +272,13 @@ def edit_aaaa(ctx, record_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv6 address of the record to create, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -315,13 +316,13 @@ def create_aaaa(ctx, domain_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv6 address, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -358,13 +359,13 @@ def edit_aaaaptr(ctx, record_id, name, ip, ttl=3600):
 )
 @click.option(
     "--ip",
-    type=unicode,
+    type=str,
     prompt=True,
     help="IPv6 address of the record to create, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -402,13 +403,13 @@ def create_aaaaptr(ctx, domain_id, name, ip, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the CNAME record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -445,13 +446,13 @@ def edit_cname(ctx, record_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the CNAME record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -489,13 +490,13 @@ def create_cname(ctx, domain_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -532,13 +533,13 @@ def edit_ns(ctx, record_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -576,13 +577,13 @@ def create_ns(ctx, domain_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -619,13 +620,13 @@ def edit_txt(ctx, record_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -681,13 +682,13 @@ def create_txt(ctx, domain_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -745,13 +746,13 @@ def edit_srv(ctx, record_id, name, value, weight, port, distance=0, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -793,13 +794,13 @@ def create_srv(ctx, domain_id, name, value, weight, port, distance=0,
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -836,13 +837,13 @@ def edit_spf(ctx, record_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -880,13 +881,13 @@ def create_spf(ctx, domain_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -923,13 +924,13 @@ def edit_ptr(ctx, record_id, name, value, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -997,13 +998,13 @@ def create_ptr(ctx, domain_id, name, value, ttl=3600):
 )
 @click.option(
     "--nameserver",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Authority name server, i.e. ns1.example.com, required"
 )
 @click.option(
     "--email",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Domain contact, i.e. hostmaster.example.com, required"
 )
@@ -1076,13 +1077,13 @@ def edit_soa(ctx, record_id, email, nameserver, refresh=16374, retry=2048,
 )
 @click.option(
     "--nameserver",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Authority name server, i.e. ns1.example.com, required"
 )
 @click.option(
     "--email",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Domain contact, i.e. hostmaster.example.com, required"
 )
@@ -1132,13 +1133,13 @@ def create_soa(ctx, domain_id, email, nameserver, refresh=16374, retry=2048,
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -1182,13 +1183,13 @@ def edit_mx(ctx, record_id, name, value, distance=0, ttl=3600):
 )
 @click.option(
     "--value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the record to create, required"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record to create, required"
 )
@@ -1239,13 +1240,13 @@ def create_mx(ctx, domain_id, name, value, distance=0, ttl=3600):
 )
 @click.option(
     "--tag-value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the CAA tag"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )
@@ -1296,13 +1297,13 @@ def edit_caa(ctx, record_id, name, tag, tag_value, flag=0, ttl=3600):
 )
 @click.option(
     "--tag-value",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Value of the CAA tag"
 )
 @click.option(
     "--name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Hostname of the record, required"
 )

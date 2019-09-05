@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -22,13 +23,13 @@ logger = logging.getLogger(__name__)
 )
 @click.option(
     "--search",
-    type=unicode,
+    type=str,
     prompt=False,
     help=("Optional search string for log entry")
 )
 @click.option(
     "--domain-ids",
-    type=unicode,
+    type=str,
     prompt=False,
     help=("Optional comma delimited list of domain ids to filter logs by, "
           "defaults to all domains.")

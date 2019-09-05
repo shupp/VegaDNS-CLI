@@ -1,4 +1,7 @@
 from __future__ import print_function
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 import click
 import json
 import logging
@@ -41,7 +44,7 @@ def get_token(ctx, json):
             # date = datetime.datetime.fromtimestamp(expires_at)
             now = int(time.time())
             seconds_left = expires_at - now
-            minutes = int(math.floor(seconds_left / 60))
+            minutes = int(math.floor(old_div(seconds_left, 60)))
             seconds = int(seconds_left - (minutes * 60))
             expires_at = (
                 str(minutes) + " minutes and " + str(seconds) + " seconds"

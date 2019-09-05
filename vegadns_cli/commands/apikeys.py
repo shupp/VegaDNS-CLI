@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -31,7 +32,7 @@ def delete(ctx, apikey_id):
 @apikeys.command()
 @click.option(
     "--description",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Description"
 )
@@ -64,7 +65,7 @@ def edit(ctx, apikey_id, description):
 )
 @click.option(
     "--description",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Description, required"
 )
@@ -105,7 +106,7 @@ def get(ctx, apikey_id):
 @apikeys.command()
 @click.option(
     "--account-ids",
-    type=unicode,
+    type=str,
     prompt=False,
     help=("Optional comma delimited list of account IDs to limit keys by, "
           "defaults to your own keys.")

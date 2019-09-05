@@ -1,3 +1,4 @@
+from builtins import str
 import click
 import json
 import logging
@@ -48,7 +49,7 @@ def list(ctx):
 @groups.command()
 @click.option(
     "--group-name",
-    type=unicode,
+    type=str,
     prompt=True,
     help="Group name to use, must be unique"
 )
