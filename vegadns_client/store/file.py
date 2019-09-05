@@ -1,5 +1,5 @@
 import json
-import md5
+from hashlib import md5
 import os.path
 
 from vegadns_client.store import AccessTokenStoreAbstract
