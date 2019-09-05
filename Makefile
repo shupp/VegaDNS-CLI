@@ -2,6 +2,11 @@
 
 default: check
 
+venv:
+	(virtualenv venv \
+		&& source venv/bin/activate \
+		&& pip install -r requirements.txt)
+
 build-image:
 	docker build --no-cache -t vegadns/cli .
 
