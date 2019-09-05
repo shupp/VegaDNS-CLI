@@ -1,14 +1,14 @@
-# You'll need to source venv/bin/activate before running this file
+TAG := python3
 
 default: check
 
 venv:
-	(virtualenv venv \
+	(python3 -m venv venv \
 		&& source venv/bin/activate \
-		&& pip install -r requirements.txt)
+		&& pip3 install -r requirements.txt)
 
 build-image:
-	docker build --no-cache -t vegadns/cli .
+	docker build --no-cache -t vegadns/cli:${TAG} .
 
 # Only check code we've written
 check:
