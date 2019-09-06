@@ -1,5 +1,5 @@
 import json
-from hashlib import md5
+import hashlib
 import os.path
 
 from vegadns_client.store import AccessTokenStoreAbstract
@@ -18,7 +18,9 @@ class AccessTokenStoreFile(AccessTokenStoreAbstract):
         super(AccessTokenStoreFile, self).__init__(
             key, secret, host, version
         )
-        hash = md5.new(key + secret + host).hexdigest()
+        m = hashlib.md5()
+        m.update(str.encode(key + secret + host))
+        hash = m.hexdigest()
         self.token_file = os.path.expanduser(directory + prefix + hash)
 
     def get(self):
