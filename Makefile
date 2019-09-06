@@ -1,4 +1,4 @@
-TAG := python3
+TAG := latest
 
 default: check
 
