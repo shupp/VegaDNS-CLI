@@ -17,3 +17,6 @@ clean-python:
 	find vegadns_client vegadns_cli -name "*.pyc" -exec rm {} \;
 test-integration:
 	nosetests integration_tests
+
+upgrade-pip-packages: venv
+	pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
