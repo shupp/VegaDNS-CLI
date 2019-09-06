@@ -298,13 +298,8 @@ class TestDomain(unittest.TestCase):
         response = dnsclient.exec_query(
             "example.com", "type257", self.ns_server
         )
-        # dnspython doesn't support CAA yet so use the hex output
-        # 00 flag
-        # 05 length
-        # 6973737565 = issue
-        # 64696769636572742e636f6d = digicert.com
         self.assertEquals(
-            "\\# 19 0005697373756564696769636572742e 636f6d", str(response[0])
+            "0 issue \"digicert.com\"", str(response[0])
         )
 
         # Make changes to records
@@ -489,6 +484,5 @@ class TestDomain(unittest.TestCase):
             "example.com", "type257", self.ns_server
         )
         self.assertEquals(
-            '\\# 22 000569737375656c657473656e637279 70742e636f6d',
-            str(response[0])
+            "0 issue \"letsencrypt.com\"", str(response[0])
         )
