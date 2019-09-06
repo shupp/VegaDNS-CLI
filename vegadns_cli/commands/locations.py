@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 def delete(ctx, location_id):
     """Delete a location and its related network prefixes"""
     try:
-        l = ctx.obj['client'].location(location_id)
-        l.delete()
+        lo = ctx.obj['client'].location(location_id)
+        lo.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
@@ -51,12 +51,12 @@ def delete(ctx, location_id):
 def edit(ctx, location_id, location, location_description=None):
     """Edit a location"""
     try:
-        l = ctx.obj['client'].location(location_id)
+        lo = ctx.obj['client'].location(location_id)
         data = {
             'location_description': location_description,
             'location': location
         }
-        location = l.edit(data)
+        location = lo.edit(data)
         click.echo(json.dumps(location.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
@@ -84,8 +84,8 @@ def create(ctx, location, location_description=None):
             'location': location,
             'location_description': location_description,
         }
-        l = ctx.obj['client'].locations.create(data)
-        click.echo(json.dumps(l.values, indent=4))
+        lo = ctx.obj['client'].locations.create(data)
+        click.echo(json.dumps(lo.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
@@ -103,8 +103,8 @@ def create(ctx, location, location_description=None):
 def get(ctx, location_id):
     """Get a single location by id"""
     try:
-        l = ctx.obj['client'].location(location_id)
-        click.echo(json.dumps(l.values, indent=4))
+        lo = ctx.obj['client'].location(location_id)
+        click.echo(json.dumps(lo.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)

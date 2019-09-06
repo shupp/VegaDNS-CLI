@@ -12,9 +12,9 @@ class Locations(AbstractResourceCollection):
         decoded = r.json()
         locations = []
         for location in decoded["locations"]:
-            l = Location(self.client)
-            l.values = location
-            locations.append(l)
+            lo = Location(self.client)
+            lo.values = location
+            locations.append(lo)
 
         return locations
 

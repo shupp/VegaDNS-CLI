@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 def delete(ctx, prefix_id):
     """Delete a location prefix"""
     try:
-        l = ctx.obj['client'].location_prefix(prefix_id)
-        l.delete()
+        lp = ctx.obj['client'].location_prefix(prefix_id)
+        lp.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
@@ -111,8 +111,8 @@ def create(
             'prefix_type': prefix_type,
             'prefix_description': prefix_description
         }
-        l = ctx.obj['client'].location_prefixes.create(data)
-        click.echo(json.dumps(l.values, indent=4))
+        lp = ctx.obj['client'].location_prefixes.create(data)
+        click.echo(json.dumps(lp.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)
@@ -130,8 +130,8 @@ def create(
 def get(ctx, prefix_id):
     """Get a single location prefix"""
     try:
-        l = ctx.obj['client'].location_prefix(location_id)
-        click.echo(json.dumps(l.values, indent=4))
+        lp = ctx.obj['client'].location_prefix(location_id)
+        click.echo(json.dumps(lp.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
         click.echo("Response: " + e.message)

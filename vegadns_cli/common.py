@@ -73,6 +73,7 @@ def domains(ctx):
     """Manage domains"""
     pass
 
+
 cli.add_command(domains)
 
 
@@ -81,6 +82,7 @@ cli.add_command(domains)
 def records(ctx):
     """Manage a domain's records"""
     pass
+
 
 cli.add_command(records)
 
@@ -91,6 +93,7 @@ def default_records(ctx):
     """Manage default records"""
     pass
 
+
 cli.add_command(default_records)
 
 
@@ -99,6 +102,7 @@ cli.add_command(default_records)
 def config(ctx):
     """Manage the config for the current environment"""
     pass
+
 
 cli.add_command(config)
 
@@ -109,6 +113,7 @@ def accounts(ctx):
     """Manage accounts"""
     pass
 
+
 cli.add_command(accounts)
 
 
@@ -117,6 +122,7 @@ cli.add_command(accounts)
 def domaingroupmaps(ctx):
     """Manage domain to group mappings/permissions"""
     pass
+
 
 cli.add_command(domaingroupmaps)
 
@@ -127,6 +133,7 @@ def groups(ctx):
     """Manage groups"""
     pass
 
+
 cli.add_command(groups)
 
 
@@ -135,6 +142,7 @@ cli.add_command(groups)
 def groupmembers(ctx):
     """Manage group members"""
     pass
+
 
 cli.add_command(groupmembers)
 
@@ -145,6 +153,7 @@ def apikeys(ctx):
     """Manage account api keys"""
     pass
 
+
 cli.add_command(apikeys)
 
 
@@ -153,6 +162,7 @@ cli.add_command(apikeys)
 def locations(ctx):
     """Manage locations"""
     pass
+
 
 cli.add_command(locations)
 
@@ -163,6 +173,7 @@ def location_prefixes(ctx):
     """Manage location network prefixes"""
     pass
 
+
 cli.add_command(location_prefixes)
 
 
@@ -171,5 +182,6 @@ cli.add_command(location_prefixes)
 def audit_logs(ctx):
     """List audit logs"""
     pass
+
 
 cli.add_command(audit_logs)
