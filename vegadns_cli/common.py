@@ -1,5 +1,4 @@
 from future import standard_library
-standard_library.install_aliases()
 import click
 import http.client as http_client
 import configparser
@@ -9,6 +8,7 @@ import requests
 
 from vegadns_client import client
 from vegadns_client.store.file import AccessTokenStoreFile
+standard_library.install_aliases()
 
 
 logger = logging.getLogger(__name__)

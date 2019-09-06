@@ -1,4 +1,6 @@
 from builtins import object
+
+
 class AbstractResource(object):
     def __init__(self, client):
         self.client = client
