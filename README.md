@@ -4,10 +4,10 @@ VegaDNS CLI is a command line interface for [VegaDNS-API](https://github.com/shu
 
 ## Installation and upgrades
 
-Installation should be done through [pip](https://pip.pypa.io/en/stable/).  For a first time global installation, you can do the following:
+Installation should be done through [pip3](https://pip.pypa.io/en/stable/).  For a first time global installation, you can do the following:
 
 ```
-sudo pip install https://github.com/shupp/VegaDNS-CLI/archive/master.zip
+sudo pip3 install https://github.com/shupp/VegaDNS-CLI/archive/master.zip
 ```
 
 For subsequent updates, you can use the builtin _upgrade_ command:
