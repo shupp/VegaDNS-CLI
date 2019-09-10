@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='vegadns_cli',
-      version='0.1.1',
+      version='0.2.0',
       description='VegaDNS CLI tool',
       # long_description=open('README.md').read(),
       url='https://github.com/shupp/VegaDNS',
@@ -9,11 +9,16 @@ setup(name='vegadns_cli',
       author_email='hostmaster@shupp.org',
       license='Apache 2.0',
       install_requires=[
-        "click==6.4",
-        "dnspython==1.12.0",
+        "certifi==2019.6.16",
+        "chardet==3.0.4",
+        "Click==7.0",
+        "dnspython==1.16.0",
+        "future==0.17.1",
+        "idna==2.8",
         "nose==1.3.7",
-        "pep8==1.7.0",
-        "requests==2.20.0",
+        "pycodestyle==2.5.0",
+        "requests==2.22.0",
+        "urllib3==1.25.3"
       ],
       packages=[
         'vegadns_cli',
