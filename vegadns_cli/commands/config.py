@@ -13,7 +13,6 @@ from vegadns_cli.common import cli, config, configfile
 def list(ctx):
     """List the config sections that can be used as environments"""
     environments = ctx.obj['config'].sections()
-    environments.insert(0, 'default')
 
     for e in environments:
         key = ctx.obj['config'].get(e, 'key')

@@ -18,9 +18,9 @@ configparser.DEFAULTSECT = 'default'
 
 # Set config defaults, get config file
 configfile = os.path.expanduser('~/.vegadns-cli-rc')
-config_obj = configparser.SafeConfigParser(
-    {"key": "", "secret": "", "host": "http://localhost:5000"}
-)
+config_obj = configparser.ConfigParser(
+        defaults={"key": "", "secret": "", "host": "http://localhost:5000"})
+config_obj.add_section('default')
 config_obj.read(configfile)
 
 
