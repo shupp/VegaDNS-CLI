@@ -25,7 +25,7 @@ def delete(ctx, location_id):
         lo.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -60,7 +60,7 @@ def edit(ctx, location_id, location, location_description=None):
         click.echo(json.dumps(location.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -88,7 +88,7 @@ def create(ctx, location, location_description=None):
         click.echo(json.dumps(lo.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -107,7 +107,7 @@ def get(ctx, location_id):
         click.echo(json.dumps(lo.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -124,5 +124,5 @@ def list(ctx):
         click.echo(json.dumps(locations, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

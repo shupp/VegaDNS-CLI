@@ -40,7 +40,7 @@ def list(ctx, domain_id, group_id):
         click.echo(json.dumps(maps, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -88,7 +88,7 @@ def add(ctx, domain_id, group_id, can_read, can_write, can_delete):
         click.echo(json.dumps(m.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -107,7 +107,7 @@ def get(ctx, map_id):
         click.echo(json.dumps(m.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -126,7 +126,7 @@ def delete(ctx, map_id):
         m.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -167,5 +167,5 @@ def edit(ctx, map_id, can_read, can_write, can_delete):
         click.echo(json.dumps(m.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

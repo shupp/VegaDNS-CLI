@@ -30,7 +30,7 @@ def get_token(ctx, json):
         expires_at = ctx.obj['client'].get_access_token_expires_at()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
     if json:

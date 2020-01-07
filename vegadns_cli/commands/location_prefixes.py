@@ -25,7 +25,7 @@ def delete(ctx, prefix_id):
         lp.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -69,7 +69,7 @@ def edit(ctx, prefix_id, prefix, prefix_type, prefix_description=None):
         click.echo(json.dumps(prefix.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -115,7 +115,7 @@ def create(
         click.echo(json.dumps(lp.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -134,7 +134,7 @@ def get(ctx, prefix_id):
         click.echo(json.dumps(lp.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -159,5 +159,5 @@ def list(ctx, location_id=None):
         click.echo(json.dumps(location_prefixes, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

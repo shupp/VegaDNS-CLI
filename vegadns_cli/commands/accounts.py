@@ -25,7 +25,7 @@ def delete(ctx, account_id):
         a.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -61,7 +61,7 @@ def set_password(ctx, account_id, password):
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -126,7 +126,7 @@ def edit(ctx, account_id, first_name, last_name,
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -184,7 +184,7 @@ def create(ctx, first_name, last_name, email,
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -203,7 +203,7 @@ def get(ctx, account_id):
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -224,5 +224,5 @@ def list(ctx, search):
         click.echo(json.dumps(accounts, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

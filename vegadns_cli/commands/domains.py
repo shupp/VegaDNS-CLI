@@ -33,7 +33,7 @@ def list(ctx, include_permissions, search):
         click.echo(json.dumps(domains, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -81,7 +81,7 @@ def get(ctx, include_permissions, domain_id=None, domain=None):
         ctx.exit(1)
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -111,7 +111,7 @@ def edit(ctx, domain_id, owner_id, status):
         click.echo(json.dumps(d.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -152,7 +152,7 @@ def create(ctx, domain, skip_soa=False, skip_default_records=False,
         click.echo(json.dumps(d.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -171,7 +171,7 @@ def create_default_soa(ctx, domain_id):
         click.echo(json.dumps(d.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -190,5 +190,5 @@ def delete(ctx, domain_id):
         d.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

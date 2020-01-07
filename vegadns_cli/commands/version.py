@@ -19,5 +19,5 @@ def version(ctx):
         click.echo("cli version: 2.0.1")
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

@@ -22,7 +22,7 @@ def list(ctx):
         click.echo(json.dumps(default_records, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -66,7 +66,7 @@ def edit_a(ctx, record_id, name, ip, ttl=3600):
         click.echo(json.dumps(r.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -103,7 +103,7 @@ def create_a(ctx, name, ip, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -146,7 +146,7 @@ def edit_aaaa(ctx, record_id, name, ip, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -183,7 +183,7 @@ def create_aaaa(ctx, name, ip, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -226,7 +226,7 @@ def edit_cname(ctx, record_id, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -263,7 +263,7 @@ def create_cname(ctx, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -306,7 +306,7 @@ def edit_ns(ctx, record_id, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -343,7 +343,7 @@ def create_ns(ctx, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -386,7 +386,7 @@ def edit_txt(ctx, record_id, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -423,7 +423,7 @@ def create_txt(ctx, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -487,7 +487,7 @@ def edit_srv(ctx, record_id, name, value, weight, port, distance=0, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -545,7 +545,7 @@ def create_srv(ctx, name, value, weight, port, distance=0, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -588,7 +588,7 @@ def edit_spf(ctx, record_id, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -625,7 +625,7 @@ def create_spf(ctx, name, value, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -704,7 +704,7 @@ def edit_soa(ctx, record_id, email, nameserver, refresh=16374, retry=2048,
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -777,7 +777,7 @@ def create_soa(ctx, email, nameserver, refresh=16374, retry=2048,
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -827,7 +827,7 @@ def edit_mx(ctx, record_id, name, value, distance=0, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -871,7 +871,7 @@ def create_mx(ctx, name, value, distance=0, ttl=3600):
         click.echo(json.dumps(record.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -890,5 +890,5 @@ def delete(ctx, record_id):
         r.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

@@ -48,5 +48,5 @@ def list(ctx, domain_ids=None, search=None, sort=None, order=None):
         click.echo(json.dumps(audit_logs, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

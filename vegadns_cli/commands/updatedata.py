@@ -18,5 +18,5 @@ def update_data(ctx):
         click.echo(output)
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

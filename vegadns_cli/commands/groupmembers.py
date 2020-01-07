@@ -28,7 +28,7 @@ def list(ctx, group_id):
         click.echo(json.dumps(members, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -62,7 +62,7 @@ def add(ctx, group_id, account_id, is_admin):
         click.echo(json.dumps(g.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -81,7 +81,7 @@ def delete(ctx, groupmember_id):
         g.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -107,5 +107,5 @@ def edit(ctx, groupmember_id, is_admin):
         g.edit(is_admin)
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

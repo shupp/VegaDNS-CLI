@@ -25,7 +25,7 @@ def delete(ctx, apikey_id):
         a.delete()
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -52,7 +52,7 @@ def edit(ctx, apikey_id, description):
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -80,7 +80,7 @@ def create(ctx, description, account_id=None):
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -99,7 +99,7 @@ def get(ctx, apikey_id):
         click.echo(json.dumps(a.values, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
 
 
@@ -126,5 +126,5 @@ def list(ctx, account_ids=None):
         click.echo(json.dumps(apikeys, indent=4))
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)

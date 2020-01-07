@@ -18,5 +18,5 @@ def export(ctx):
         click.echo(datafile)
     except ClientException as e:
         click.echo("Error: " + str(e.code))
-        click.echo("Response: " + e.message)
+        click.echo("Response: " + str(e.message))
         ctx.exit(1)
