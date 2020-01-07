@@ -15,4 +15,4 @@ def upgrade():
     resolver = dns.resolver.Resolver()
     result = resolver.query("cli_upgrade_url.vegadns.org", "txt", tcp=False)
     url = str(result[0]).replace('"', "")
-    call(["pip", "install", "--upgrade", url])
+    call(["pip3", "install", "--upgrade", url])
