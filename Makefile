@@ -1,6 +1,11 @@
 TAG := latest
 
-default: check
+help:
+	@echo Available targets:
+	@echo
+	@grep '^\S\+:' Makefile \
+		| grep -v .PHONY | \
+		awk -F: '{ print $$1 }'
 
 venv:
 	(python3 -m venv venv \
