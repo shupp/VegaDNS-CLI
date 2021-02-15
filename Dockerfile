@@ -4,11 +4,9 @@ ENV VEGADNS_CLI master
 
 ADD . /opt/vegadns-cli
 
-RUN apk --update add python3 py3-setuptools curl bash
+RUN apk --update add python3 py3-setuptools curl bash py3-pip
 
-RUN apk --update add --virtual build-dependencies py3-pip \
-  && pip3 install -r /opt/vegadns-cli/requirements.txt \
-  && apk del build-dependencies
+RUN pip3 install -r /opt/vegadns-cli/requirements.txt
 
 WORKDIR /opt/vegadns-cli
 
