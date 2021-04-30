@@ -18,7 +18,7 @@ setup(name='vegadns_cli',
         "nose==1.3.7",
         "pycodestyle==2.5.0",
         "requests==2.22.0",
-        "urllib3==1.25.3"
+        "urllib3==1.25.8"
       ],
       packages=[
         'vegadns_cli',
