@@ -9,7 +9,7 @@ setup(name='vegadns_cli',
       author_email='hostmaster@shupp.org',
       license='Apache 2.0',
       install_requires=[
-        "certifi==2019.6.16",
+        "certifi==2022.12.7",
         "chardet==3.0.4",
         "Click==7.0",
         "dnspython==1.16.0",
